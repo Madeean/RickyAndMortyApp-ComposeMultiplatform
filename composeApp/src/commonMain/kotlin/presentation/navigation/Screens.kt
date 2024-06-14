@@ -1,6 +1,5 @@
 package presentation.navigation
 
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import presentation.util.ConstantNavigator
 
