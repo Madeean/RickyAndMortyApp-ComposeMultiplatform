@@ -30,7 +30,7 @@ fun SplashScreen(
   )
 
   LaunchedEffect(key1 = true){
-    delay(3000)
+    delay(1000)
     navigateToHomeScreen()
   }
 

@@ -9,6 +9,7 @@ import presentation.navigation.SetupNavigation
 @Preview
 fun App() {
     lateinit var navController: NavHostController
+    di.initializeKoin()
     MaterialTheme {
         navController = rememberNavController()
         SetupNavigation(navController = navController)

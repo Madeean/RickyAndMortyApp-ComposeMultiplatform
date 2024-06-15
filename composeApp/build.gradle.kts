@@ -52,6 +52,14 @@ kotlin {
             implementation(libs.ktor.client.content.negotiation)
             implementation(libs.ktor.serialization.kotlinx.json)
             implementation(libs.kotlin.coroutines)
+            implementation(libs.ktor.client.logging)
+
+            implementation("org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose:2.8.0")
+
+            implementation(libs.voyager.navigator)
+            implementation(libs.voyager.screen.model)
+            implementation(libs.voyager.transitions)
+            implementation(libs.voyager.koin)
 
             implementation(libs.navigation.compose)
         }
