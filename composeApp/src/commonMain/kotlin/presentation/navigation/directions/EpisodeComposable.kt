@@ -14,6 +14,5 @@ fun NavGraphBuilder.EpisodeComposable(
   composable(
     route = ConstantNavigator.EPISODE_HOME_SCREEN
   ){
-   EpisodeScreen()
   }
 }

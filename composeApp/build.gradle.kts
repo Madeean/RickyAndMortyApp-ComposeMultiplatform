@@ -1,7 +1,3 @@
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidApplication)
@@ -52,6 +48,10 @@ kotlin {
             implementation(libs.ktor.client.content.negotiation)
             implementation(libs.ktor.serialization.kotlinx.json)
             implementation(libs.kotlin.coroutines)
+            implementation(libs.ktor.client.logging)
+            implementation(libs.koin.compose)
+
+            implementation(libs.lifecycle.viewmodel.compose)
 
             implementation(libs.navigation.compose)
         }
