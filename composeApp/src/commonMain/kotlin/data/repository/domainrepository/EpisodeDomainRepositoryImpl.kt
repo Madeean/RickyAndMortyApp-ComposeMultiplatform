@@ -6,7 +6,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class EpisodeDomainRepository(
+class EpisodeDomainRepositoryImpl(
 private val apiService: ApiService
 ): EpisodeDomainRepository {
   override suspend fun getAllEpisode(scope: CoroutineScope, name: String) {

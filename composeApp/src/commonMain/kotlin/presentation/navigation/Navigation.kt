@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import presentation.episode.EpisodeViewModel
 import presentation.navigation.directions.CharacterComposable
 import presentation.navigation.directions.EpisodeComposable
 import presentation.navigation.directions.HomeComposable
@@ -15,6 +16,7 @@ import presentation.util.ConstantNavigator
 @Composable
 fun SetupNavigation(
   navController: NavHostController,
+  episodeViewModel: EpisodeViewModel
 ) {
   val screen = remember(navController) {
     Screens(navController = navController)
@@ -48,10 +50,7 @@ fun SetupNavigation(
       navigateToLocationScreen = screen.location
     )
     HomeComposable(
-      navigateToSettingScreen = screen.setting,
-      navigateToLocationScreen = screen.location,
-      navigateToCharacterScreen = screen.character,
-      navigateToEpisodeScreen = screen.episode
+      viewModel = episodeViewModel
     )
   }
 }

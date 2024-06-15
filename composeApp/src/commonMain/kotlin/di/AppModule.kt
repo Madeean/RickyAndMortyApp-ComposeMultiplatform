@@ -2,25 +2,19 @@ package di
 
 import data.network.ApiService
 import data.network.httpClient
-import data.repository.domainrepository.EpisodeDomainRepository
+import data.repository.domainrepository.EpisodeDomainRepositoryImpl
+import domain.episode.EpisodeDomainRepository
 import domain.episode.EpisodeDomainUseCase
 import domain.episode.EpisodeDomainUseCaseImpl
-import org.koin.core.context.startKoin
 import org.koin.dsl.module
 import presentation.episode.EpisodeViewModel
 
 val appModule = module {
-//  includes(networkModule, viewModelModule, repositoryModule)
   single { httpClient }
   single { ApiService(get()) }
-  single { EpisodeDomainRepository(get()) }
+  single { EpisodeDomainRepositoryImpl(get()) }
   single { EpisodeDomainUseCaseImpl(get()) }
-  single<EpisodeDomainUseCase> {EpisodeDomainUseCaseImpl(get())}
+  single<EpisodeDomainUseCase> { EpisodeDomainUseCaseImpl(get()) }
+  single<EpisodeDomainRepository> { EpisodeDomainRepositoryImpl(get()) }
   factory { EpisodeViewModel(get()) }
-}
-
-fun initializeKoin() {
-  startKoin {
-    appModule
-  }
 }
