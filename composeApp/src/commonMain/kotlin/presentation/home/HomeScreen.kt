@@ -25,8 +25,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import presentation.character.CharacterScreen
-import presentation.episode.EpisodeScreen
-import presentation.episode.EpisodeViewModel
+import presentation.episode.screen.EpisodeScreen
+import presentation.episode.viewmodel.EpisodeViewModel
 import presentation.location.LocationScreen
 import presentation.setting.SettingScreen
 import presentation.theme.abuabumuda

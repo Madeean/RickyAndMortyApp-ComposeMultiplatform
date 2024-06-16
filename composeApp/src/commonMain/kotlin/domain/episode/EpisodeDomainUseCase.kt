@@ -1,14 +1,15 @@
 package domain.episode
 
-import io.ktor.http.ContentType.Application
+import domain.episode.model.network.EpisodeDetailModelDomain
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
+import util.RequestState
 
 interface EpisodeDomainUseCase {
-  suspend fun getAllEpisode(
-    scope: CoroutineScope,
-    name:String
-  )
+   fun getAllEpisode(
+    name:String,
+    viewmodelScope: CoroutineScope
+  ):Flow<RequestState<List<EpisodeDetailModelDomain>>>
 
   suspend fun getMessage(): Flow<String>
 }

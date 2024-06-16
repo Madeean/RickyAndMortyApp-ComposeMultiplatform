@@ -7,7 +7,7 @@ import androidx.navigation.compose.rememberNavController
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.KoinContext
 import org.koin.compose.currentKoinScope
-import presentation.episode.EpisodeViewModel
+import presentation.episode.viewmodel.EpisodeViewModel
 import presentation.navigation.SetupNavigation
 
 @Composable

@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import presentation.episode.EpisodeViewModel
+import presentation.episode.viewmodel.EpisodeViewModel
 import presentation.navigation.directions.CharacterComposable
 import presentation.navigation.directions.EpisodeComposable
 import presentation.navigation.directions.HomeComposable
