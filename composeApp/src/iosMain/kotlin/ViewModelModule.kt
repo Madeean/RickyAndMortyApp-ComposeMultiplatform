@@ -1,6 +1,6 @@
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
-import presentation.episode.EpisodeViewModel
+import presentation.episode.viewmodel.EpisodeViewModel
 
 actual val viewModelModule = module {
   singleOf(::EpisodeViewModel)

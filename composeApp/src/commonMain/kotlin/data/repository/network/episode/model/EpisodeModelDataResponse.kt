@@ -1,8 +1,10 @@
 package data.repository.network.episode.model
 
+import domain.episode.model.network.EpisodeDetailModelDomain
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+@Serializable
 data class EpisodeModelDataResponse(
   val results : List<EpisodeDetailModelDataResponse>
 )
@@ -15,35 +17,35 @@ data class EpisodeDetailModelDataResponse(
   val created:String?,
   @SerialName("characters") val characterList:List<String>?,
 ){
-//  companion object{
-//    fun transforms(models:List<EpisodeDetail>?):List<EpisodeModelItemModel>{
-//      if (models != null) {
-//        return models.map{
-//          transform(
-//            EpisodeDetail(
-//              it.id,
-//              it.name,
-//              it.airDate,
-//              it.episode,
-//              it.created,
-//              it.characterList
-//            ),
-//          )
-//        }
-//      }else{
-//        return listOf()
-//      }
-//    }
-//
-//    private fun transform(model:EpisodeDetail?): EpisodeModelItemModel {
-//      return EpisodeModelItemModel(
-//        model?.id,
-//        model?.name,
-//        model?.airDate,
-//        model?.episode,
-//        model?.created,
-//        model?.characterList,
-//      )
-//    }
-//  }
+  companion object{
+    fun transforms(models:List<EpisodeDetailModelDataResponse>?):List<EpisodeDetailModelDomain>{
+      if (models != null) {
+        return models.map{
+          transform(
+            EpisodeDetailModelDataResponse(
+              it.id ?: 0,
+              it.name ?: "",
+              it.airDate ?: "",
+              it.episode ?: "",
+              it.created ?: "",
+              it.characterList ?: listOf()
+            ),
+          )
+        }
+      }else{
+        return listOf()
+      }
+    }
+
+    private fun transform(model:EpisodeDetailModelDataResponse?): EpisodeDetailModelDomain {
+      return EpisodeDetailModelDomain(
+        model?.id ?: 0,
+        model?.name ?: "",
+        model?.airDate ?: "",
+        model?.episode?:"",
+        model?.created?:"",
+        model?.characterList?: listOf(),
+      )
+    }
+  }
 }
