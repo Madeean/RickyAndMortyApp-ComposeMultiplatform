@@ -1,4 +1,4 @@
-package data.repository.datastore
+package data.repository.datastore.episode
 
 import data.network.ApiService
 import data.repository.network.episode.model.EpisodeDetailModelDataResponse

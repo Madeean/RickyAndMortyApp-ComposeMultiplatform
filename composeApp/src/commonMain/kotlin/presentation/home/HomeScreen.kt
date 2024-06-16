@@ -24,7 +24,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import presentation.character.CharacterScreen
+import presentation.character.screen.CharacterScreen
+import presentation.character.viewmodel.CharacterViewModel
 import presentation.episode.screen.EpisodeScreen
 import presentation.episode.viewmodel.EpisodeViewModel
 import presentation.location.LocationScreen
@@ -37,7 +38,8 @@ import presentation.theme.white
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
-  viewModel: EpisodeViewModel
+  episodeViewModel: EpisodeViewModel,
+  characterViewModel: CharacterViewModel
 ) {
   var selectedItem by remember { mutableStateOf(0) }
   val items = listOf("Episode", "Character", "Location", "Settings")
@@ -108,8 +110,8 @@ fun HomeScreen(
     }
   ) { innerPadding ->
     when (selectedItem) {
-      0 -> EpisodeScreen(innerPaddingValues = innerPadding, viewModel = viewModel)
-      1 -> CharacterScreen()
+      0 -> EpisodeScreen(innerPaddingValues = innerPadding, viewModel = episodeViewModel)
+      1 -> CharacterScreen(innerPadding, characterViewModel)
       2 -> LocationScreen()
       3 -> SettingScreen()
     }

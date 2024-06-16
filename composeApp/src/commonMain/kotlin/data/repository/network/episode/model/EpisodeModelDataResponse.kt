@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class EpisodeModelDataResponse(
-  val results : List<EpisodeDetailModelDataResponse>
+  @SerialName("results") val results : List<EpisodeDetailModelDataResponse>?
 )
 @Serializable
 data class EpisodeDetailModelDataResponse(

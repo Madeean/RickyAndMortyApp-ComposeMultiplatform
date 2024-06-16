@@ -54,6 +54,14 @@ kotlin {
             implementation(libs.lifecycle.viewmodel.compose)
 
             implementation(libs.navigation.compose)
+
+            implementation(libs.media.kamel)
+            implementation(libs.paging.compose.common)
+            implementation(libs.paging.common)
+
+            implementation("io.github.alexzhirkevich:compottie:1.1.2")
+
+            implementation("com.github.skydoves:flexible-bottomsheet-material3:0.1.3")
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)

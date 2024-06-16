@@ -7,6 +7,7 @@ import androidx.navigation.compose.rememberNavController
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.KoinContext
 import org.koin.compose.currentKoinScope
+import presentation.character.viewmodel.CharacterViewModel
 import presentation.episode.viewmodel.EpisodeViewModel
 import presentation.navigation.SetupNavigation
 
@@ -16,9 +17,10 @@ fun App() {
   lateinit var navController: NavHostController
   MaterialTheme {
     KoinContext {
-      val viewModel = koinViewModel<EpisodeViewModel>()
+      val episodeViewModel = koinViewModel<EpisodeViewModel>()
+      val characterViewModel = koinViewModel<CharacterViewModel>()
       navController = rememberNavController()
-      SetupNavigation(navController = navController, episodeViewModel = viewModel)
+      SetupNavigation(navController = navController, episodeViewModel = episodeViewModel, characterViewModel = characterViewModel)
     }
 
   }
