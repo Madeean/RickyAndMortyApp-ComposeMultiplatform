@@ -9,7 +9,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import util.RequestState
 
 
 class EpisodeViewModel(private val useCase: EpisodeDomainUseCase) : ViewModel() {
@@ -18,10 +17,12 @@ class EpisodeViewModel(private val useCase: EpisodeDomainUseCase) : ViewModel() 
     MutableStateFlow(PagingData.empty())
   val episode: StateFlow<PagingData<EpisodeDetailModelDomain>> = _episode
 
+  lateinit var data: ArrayList<EpisodeDetailModelDomain>
+
 
   fun getEpisodePaging(name:String = ""){
     viewModelScope.launch {
-      useCase.getEpisodePaging(viewModelScope, name).collectLatest {
+      useCase.getEpisodePaging(viewModelScope, name).collectLatest { it ->
         _episode.value = it
       }
     }

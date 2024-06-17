@@ -81,3 +81,14 @@ data class CharacterDetailLocationModelDataResponse(
   val name:String?,
   val url:String?
 )
+
+@Serializable
+data class CharacterErrorModelDataResponse(
+  val error: String?
+){
+  companion object{
+    fun transforms(models: CharacterErrorModelDataResponse?):List<CharacterDetailModelDomain>{
+      return listOf()
+    }
+  }
+}

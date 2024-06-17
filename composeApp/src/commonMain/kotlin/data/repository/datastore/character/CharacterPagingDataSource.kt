@@ -4,12 +4,12 @@ import androidx.paging.PagingState
 import app.cash.paging.PagingSource
 import data.network.ApiService
 import data.repository.network.character.model.CharacterDetailModelDataResponse
+import data.repository.network.character.model.CharacterErrorModelDataResponse
 import data.repository.network.character.model.CharacterModelDataResponse
 import domain.character.model.network.CharacterDetailModelDomain
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
-import kotlinx.coroutines.delay
 
 class CharacterPagingDataSource(
   private val httpClient: HttpClient,
@@ -35,8 +35,11 @@ class CharacterPagingDataSource(
 
         toLoadResult(data = data, nextKey = if (data.isEmpty()) null else position + 1)
       } else {
-        val error = Throwable(message = "HTTP ERROR ${response.status.value}")
-        LoadResult.Error(error)
+        val apiResponse = response.body<CharacterErrorModelDataResponse>()
+        val data = CharacterErrorModelDataResponse.transforms(apiResponse)
+
+        toLoadResult(data = data, nextKey = if (data.isEmpty()) null else position + 1)
+
       }
     } catch (e: Exception) {
       LoadResult.Error(e)

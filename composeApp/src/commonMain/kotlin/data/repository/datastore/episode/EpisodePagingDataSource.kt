@@ -4,12 +4,12 @@ import androidx.paging.PagingState
 import app.cash.paging.PagingSource
 import data.network.ApiService
 import data.repository.network.episode.model.EpisodeDetailModelDataResponse
+import data.repository.network.episode.model.EpisodeErrorModelDataResponse
 import data.repository.network.episode.model.EpisodeModelDataResponse
 import domain.episode.model.network.EpisodeDetailModelDomain
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
-import util.RequestState
 
 
 class EpisodePagingDataSource(
@@ -27,10 +27,19 @@ class EpisodePagingDataSource(
 
       val response = httpClient.get("${apiService.BASE_URL_EPISODE}?name=$name&page=$position")
 
+      if(response.status.value == 200){
         val apiResponse = response.body<EpisodeModelDataResponse>()
         val data = EpisodeDetailModelDataResponse.transforms(apiResponse.results)
 
         toLoadResult(data = data, nextKey = if(data.isEmpty()) null else position +1)
+      }else{
+        val apiResponse = response.body<EpisodeErrorModelDataResponse>()
+        val data = EpisodeErrorModelDataResponse.transforms(apiResponse)
+
+        toLoadResult(data = data, nextKey = if(data.isEmpty()) null else position + 1)
+      }
+
+
 
     }catch (e:Exception){
       LoadResult.Error(e)

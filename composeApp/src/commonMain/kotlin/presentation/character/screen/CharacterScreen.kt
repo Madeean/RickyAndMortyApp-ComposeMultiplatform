@@ -1,11 +1,9 @@
 package presentation.character.screen
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -19,12 +17,9 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.Icons.Filled
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -36,26 +31,24 @@ import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.SheetState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Gray
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -63,22 +56,14 @@ import app.cash.paging.LoadStateError
 import app.cash.paging.LoadStateLoading
 import app.cash.paging.LoadStateNotLoading
 import app.cash.paging.compose.collectAsLazyPagingItems
-import com.skydoves.flexible.bottomsheet.material3.FlexibleBottomSheet
-import com.skydoves.flexible.core.FlexibleSheetSize
-import com.skydoves.flexible.core.rememberFlexibleBottomSheetState
 import domain.character.model.network.CharacterDetailModelDomain
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
-import io.ktor.client.utils.EmptyContent.status
-import kotlinx.coroutines.launch
-import org.jetbrains.compose.resources.painterResource
 import presentation.character.viewmodel.CharacterViewModel
 import presentation.theme.abuabumuda
 import presentation.theme.biru
 import presentation.theme.black
 import presentation.theme.white
-import rickandmortyapp.composeapp.generated.resources.Res
-import rickandmortyapp.composeapp.generated.resources.indomie_goreng_png_0
 import util.ErrorView
 import util.LoaderShow
 
@@ -91,6 +76,8 @@ fun CharacterScreen(innerPaddingValues: PaddingValues, viewModel: CharacterViewM
   var typeOnChanged by remember { mutableStateOf("") }
   var selectedGender by remember { mutableStateOf("") }
   var selectedStatus by remember { mutableStateOf("") }
+
+  var showLoading by rememberSaveable { mutableStateOf(true) }
 
   val listGender = listOf("all", "male", "female", "genderless", "unknown")
   val listStatus = listOf("all", "alive", "dead", "unknown")
@@ -207,60 +194,66 @@ fun CharacterScreen(innerPaddingValues: PaddingValues, viewModel: CharacterViewM
         }
       }
 
-      LazyVerticalGrid(
-        columns = GridCells.Fixed(2),
-        verticalArrangement = Arrangement.spacedBy(5.dp),
-        horizontalArrangement = Arrangement.spacedBy(5.dp),
-      ) {
-        items(dataPaging.itemCount) { index ->
-          val item = dataPaging[index]
-          item?.let { CharacterItem(it) }
-        }
+      if(showLoading) {
+        LoaderShow()
+      }
+        LazyVerticalGrid(
+          columns = GridCells.Fixed(2),
+          verticalArrangement = Arrangement.spacedBy(5.dp),
+          horizontalArrangement = Arrangement.spacedBy(5.dp),
+        ) {
+          items(dataPaging.itemCount) { index ->
+              val item = dataPaging[index]
+              item?.let {
+                CharacterItem(it)
+              }.let {
+                showLoading = false
+              }
 
-        dataPaging.loadState.apply {
-          when {
-            refresh is LoadStateNotLoading && dataPaging.itemCount < 1 -> {
+          }
+
+          dataPaging.loadState.apply {
+            when {
+              refresh is LoadStateNotLoading && dataPaging.itemCount < 1 -> {
               item {
                 Box(
                   modifier = Modifier.fillMaxWidth(1f),
-                  contentAlignment = Alignment.Center
+                  contentAlignment = Alignment.TopCenter
                 ) {
                   Text(
                     text = "No Items",
-                    modifier = Modifier.align(Alignment.Center),
-                    textAlign = TextAlign.Center
+                    color = black,
+                    fontSize = 18.sp
+                  )
+                }
+              }
+              }
+
+              refresh is LoadStateLoading -> {
+                item {
+                  showLoading = true
+
+                }
+              }
+
+              append is LoadStateLoading -> {
+                item {
+                  showLoading = true
+
+                }
+              }
+
+              refresh is LoadStateError -> {
+                item {
+
+                  ErrorView(
+                    message = "No Internet Connection.",
+                    onClickRetry = { dataPaging.retry() },
+                    modifier = Modifier.fillMaxWidth(1f)
                   )
                 }
               }
             }
-
-            refresh is LoadStateLoading -> {
-              item {
-
-                LoaderShow()
-
-              }
-            }
-
-            append is LoadStateLoading -> {
-              item {
-
-                LoaderShow()
-
-              }
-            }
-
-            refresh is LoadStateError -> {
-              item {
-
-                ErrorView(
-                  message = "No Internet Connection.",
-                  onClickRetry = { dataPaging.retry() },
-                  modifier = Modifier.fillMaxWidth(1f)
-                )
-              }
-            }
-          }
         }
       }
     }

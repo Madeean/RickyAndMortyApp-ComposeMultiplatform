@@ -83,7 +83,7 @@ fun EpisodeScreen(innerPaddingValues: PaddingValues, viewModel: EpisodeViewModel
       ),
       keyboardActions = KeyboardActions(
         onSearch = {
-          viewModel.getEpisodePaging(name = textOnChanged)
+          viewModel.getEpisodePaging(textOnChanged)
         }
       ),
       leadingIcon = {

@@ -49,3 +49,14 @@ data class EpisodeDetailModelDataResponse(
     }
   }
 }
+
+@Serializable
+data class EpisodeErrorModelDataResponse(
+  val error: String?
+){
+  companion object{
+    fun transforms(models:EpisodeErrorModelDataResponse?):List<EpisodeDetailModelDomain>{
+      return listOf()
+    }
+  }
+}
