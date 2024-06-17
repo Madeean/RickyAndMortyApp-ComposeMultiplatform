@@ -28,7 +28,8 @@ import presentation.character.screen.CharacterScreen
 import presentation.character.viewmodel.CharacterViewModel
 import presentation.episode.screen.EpisodeScreen
 import presentation.episode.viewmodel.EpisodeViewModel
-import presentation.location.LocationScreen
+import presentation.location.screen.LocationScreen
+import presentation.location.viewmodel.LocationViewModel
 import presentation.setting.SettingScreen
 import presentation.theme.abuabumuda
 import presentation.theme.biru
@@ -39,7 +40,8 @@ import presentation.theme.white
 @Composable
 fun HomeScreen(
   episodeViewModel: EpisodeViewModel,
-  characterViewModel: CharacterViewModel
+  characterViewModel: CharacterViewModel,
+  locationViewModel: LocationViewModel
 ) {
   var selectedItem by remember { mutableStateOf(0) }
   val items = listOf("Episode", "Character", "Location", "Settings")
@@ -112,7 +114,7 @@ fun HomeScreen(
     when (selectedItem) {
       0 -> EpisodeScreen(innerPaddingValues = innerPadding, viewModel = episodeViewModel)
       1 -> CharacterScreen(innerPadding, characterViewModel)
-      2 -> LocationScreen()
+      2 -> LocationScreen(innerPadding,locationViewModel)
       3 -> SettingScreen()
     }
   }

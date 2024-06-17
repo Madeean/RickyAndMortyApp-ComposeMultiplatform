@@ -49,6 +49,7 @@ import presentation.episode.viewmodel.EpisodeViewModel
 import presentation.theme.abuabumuda
 import presentation.theme.biru
 import presentation.theme.black
+import util.ErrorItem
 import util.ErrorView
 import util.LoaderShow
 
@@ -154,14 +155,14 @@ fun EpisodeScreen(innerPaddingValues: PaddingValues, viewModel: EpisodeViewModel
               )
             }
           }
-//          append is LoadStateError -> {
-//            item {
-//              ErrorItem(
-//                message = "No Internet Connection",
-//                onClickRetry = { dataPaging.retry() },
-//              )
-//            }
-//          }
+          append is LoadStateError -> {
+            item {
+              ErrorItem(
+                message = "No Internet Connection",
+                onClickRetry = { dataPaging.retry() },
+              )
+            }
+          }
         }
       }
     }

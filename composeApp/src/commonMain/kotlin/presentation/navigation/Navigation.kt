@@ -6,10 +6,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import presentation.character.viewmodel.CharacterViewModel
 import presentation.episode.viewmodel.EpisodeViewModel
-import presentation.navigation.directions.EpisodeComposable
+import presentation.location.viewmodel.LocationViewModel
 import presentation.navigation.directions.HomeComposable
-import presentation.navigation.directions.LocationComposable
-import presentation.navigation.directions.SettingComposable
 import presentation.navigation.directions.splashComposable
 import presentation.util.ConstantNavigator
 
@@ -17,7 +15,8 @@ import presentation.util.ConstantNavigator
 fun SetupNavigation(
   navController: NavHostController,
   episodeViewModel: EpisodeViewModel,
-  characterViewModel: CharacterViewModel
+  characterViewModel: CharacterViewModel,
+  locationViewModel: LocationViewModel
 ) {
   val screen = remember(navController) {
     Screens(navController = navController)
@@ -30,24 +29,10 @@ fun SetupNavigation(
     splashComposable(
       navigateToHomeScreen =  screen.home
     )
-    SettingComposable(
-      navigateToLocationScreen = screen.location,
-      navigateToEpisodeScreen = screen.episode,
-      navigateToCharacterScreen = screen.character
-    )
-    LocationComposable(
-      navigateToEpisodeScreen = screen.episode,
-      navigateToCharacterScreen = screen.character,
-      navigateToSettingScreen = screen.setting
-    )
-    EpisodeComposable(
-      navigateToCharacterScreen = screen.character,
-      navigateToSettingScreen = screen.setting,
-      navigateToLocationScreen = screen.location
-    )
     HomeComposable(
       episodeViewModel = episodeViewModel,
-      characterViewModel= characterViewModel
+      characterViewModel= characterViewModel,
+      locationViewModel = locationViewModel
     )
   }
 }

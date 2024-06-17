@@ -11,22 +11,6 @@ class Screens(navController: NavHostController) {
     }
   }
 
-  val setting: () -> Unit =  {
-    navController.navigate(route = "setting_screen")
-  }
-
-  val episode: () -> Unit = {
-    navController.navigate(route = "episode_screen")
-  }
-
-  val character: () -> Unit = {
-    navController.navigate(route = "character_screen")
-  }
-
-  val location: () -> Unit = {
-    navController.navigate(route = "location_screen")
-  }
-
   val home: () -> Unit = {
     navController.navigate(route = "home_screen")
   }

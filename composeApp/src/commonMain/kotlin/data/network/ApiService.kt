@@ -1,7 +1,5 @@
 package data.network
 
-import io.ktor.client.HttpClient
-
 class ApiService {
 
 
@@ -12,5 +10,8 @@ class ApiService {
 
   private val CHARACTER = "character/"
   val BASE_URL_CHARACTER = "$END_POINT$CHARACTER"
+
+  private val LOCATION = "location/"
+  val BASE_URL_LOCATION = "$END_POINT$LOCATION"
 
 }

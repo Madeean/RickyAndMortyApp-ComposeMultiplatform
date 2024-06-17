@@ -17,9 +17,6 @@ class EpisodeViewModel(private val useCase: EpisodeDomainUseCase) : ViewModel() 
     MutableStateFlow(PagingData.empty())
   val episode: StateFlow<PagingData<EpisodeDetailModelDomain>> = _episode
 
-  lateinit var data: ArrayList<EpisodeDetailModelDomain>
-
-
   fun getEpisodePaging(name:String = ""){
     viewModelScope.launch {
       useCase.getEpisodePaging(viewModelScope, name).collectLatest { it ->
