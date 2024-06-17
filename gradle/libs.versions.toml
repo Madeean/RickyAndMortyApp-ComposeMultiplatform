@@ -20,6 +20,8 @@ coroutines = "1.8.0"
 lifecycleViewmodelCompose = "2.8.0"
 navigationCompose = "2.7.0-alpha07"
 koinComposeMultiplatform = "1.2.0-alpha3"
+pagingCommonVersion = "3.3.0-alpha02-0.4.0"
+kamel="0.9.1"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -53,6 +55,11 @@ kotlin-coroutines = {module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", v
 lifecycle-viewmodel-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleViewmodelCompose" }
 navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 
+paging-common = { module = "app.cash.paging:paging-common", version.ref = "pagingCommonVersion" }
+paging-runtime-uikit = { module = "app.cash.paging:paging-runtime-uikit", version.ref = "pagingCommonVersion" }
+paging-compose-common = { module = "app.cash.paging:paging-compose-common", version.ref = "pagingCommonVersion" }
+
+media-kamel = {module="media.kamel:kamel-image", version.ref="kamel"}
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class EpisodeModelDataResponse(
-  val results : List<EpisodeDetailModelDataResponse>
+  @SerialName("results") val results : List<EpisodeDetailModelDataResponse>?
 )
 @Serializable
 data class EpisodeDetailModelDataResponse(
@@ -46,6 +46,17 @@ data class EpisodeDetailModelDataResponse(
         model?.created?:"",
         model?.characterList?: listOf(),
       )
+    }
+  }
+}
+
+@Serializable
+data class EpisodeErrorModelDataResponse(
+  val error: String?
+){
+  companion object{
+    fun transforms(models:EpisodeErrorModelDataResponse?):List<EpisodeDetailModelDomain>{
+      return listOf()
     }
   }
 }
