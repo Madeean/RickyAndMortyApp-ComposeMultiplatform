@@ -6,6 +6,7 @@ plugins {
 }
 
 kotlin {
+    task("testClasses")
     androidTarget {
         compilations.all {
             kotlinOptions {
@@ -59,9 +60,9 @@ kotlin {
             implementation(libs.paging.compose.common)
             implementation(libs.paging.common)
 
-            implementation("io.github.alexzhirkevich:compottie:1.1.2")
+            implementation(libs.compottie)
 
-            implementation("com.github.skydoves:flexible-bottomsheet-material3:0.1.3")
+            implementation(libs.flexible.bottomsheet.material3)
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)

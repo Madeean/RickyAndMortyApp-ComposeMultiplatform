@@ -42,7 +42,9 @@ fun SetupNavigation(
       navigateToAboutScreen = screen.about,
       navigateToFavoriteScreen = screen.favorite
     )
-    aboutComposable()
+    aboutComposable(
+      onBackClicked = navController
+    )
     favoriteComposable()
   }
 }
