@@ -4,17 +4,15 @@ import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import presentation.splash.SplashScreen
+import presentation.favorite.FavoriteScreen
 import presentation.util.ConstantNavigator
 
-fun NavGraphBuilder.splashComposable(
-  navigateToHomeScreen:() -> Unit
-){
+fun NavGraphBuilder.favoriteComposable() {
   composable(
-    route = ConstantNavigator.SPLASH_SCREEN,
+    route = ConstantNavigator.FAVORITE_SCREEN,
     enterTransition = { EnterTransition.None },
     exitTransition = { ExitTransition.None }
-  ){
-    SplashScreen(navigateToHomeScreen)
+  ) {
+    FavoriteScreen()
   }
 }

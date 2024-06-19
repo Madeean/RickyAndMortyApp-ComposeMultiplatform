@@ -11,6 +11,8 @@ androidx-espresso-core = "3.5.1"
 androidx-material = "1.12.0"
 androidx-test-junit = "1.1.5"
 compose-plugin = "1.6.10"
+compottie = "1.1.2"
+flexibleBottomsheetMaterial3 = "0.1.3"
 junit = "4.13.2"
 kotlin = "1.9.24"
 compose = "1.6.7"
@@ -24,6 +26,8 @@ pagingCommonVersion = "3.3.0-alpha02-0.4.0"
 kamel="0.9.1"
 
 [libraries]
+compottie = { module = "io.github.alexzhirkevich:compottie", version.ref = "compottie" }
+flexible-bottomsheet-material3 = { module = "com.github.skydoves:flexible-bottomsheet-material3", version.ref = "flexibleBottomsheetMaterial3" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
