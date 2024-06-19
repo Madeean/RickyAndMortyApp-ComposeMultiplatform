@@ -6,12 +6,21 @@ import presentation.util.ConstantNavigator
 class Screens(navController: NavHostController) {
 
   val splash:() -> Unit = {
-    navController.navigate(route = "splash_screen"){
-      popUpTo(ConstantNavigator.SPLASH_SCREEN) {inclusive = true}
+    navController.navigate(route = "splash_screen") {
+      popUpTo(ConstantNavigator.SPLASH_SCREEN) { inclusive = true }
     }
   }
 
   val home: () -> Unit = {
-    navController.navigate(route = "home_screen")
+    navController.navigate(route = "home_screen") {
+      popUpTo(ConstantNavigator.SPLASH_SCREEN) { inclusive = true }
+    }
+  }
+
+  val about: () -> Unit = {
+    navController.navigate(route = "about")
+  }
+  val favorite: () -> Unit = {
+    navController.navigate(route = "favorite")
   }
 }

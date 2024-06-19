@@ -30,7 +30,7 @@ import presentation.episode.screen.EpisodeScreen
 import presentation.episode.viewmodel.EpisodeViewModel
 import presentation.location.screen.LocationScreen
 import presentation.location.viewmodel.LocationViewModel
-import presentation.setting.SettingScreen
+import presentation.setting.screen.SettingScreen
 import presentation.theme.abuabumuda
 import presentation.theme.biru
 import presentation.theme.black
@@ -41,7 +41,9 @@ import presentation.theme.white
 fun HomeScreen(
   episodeViewModel: EpisodeViewModel,
   characterViewModel: CharacterViewModel,
-  locationViewModel: LocationViewModel
+  locationViewModel: LocationViewModel,
+  navigateToAboutScreen:() ->Unit,
+  navigateToFavoriteScreen:() ->Unit,
 ) {
   var selectedItem by remember { mutableStateOf(0) }
   val items = listOf("Episode", "Character", "Location", "Settings")
@@ -115,7 +117,7 @@ fun HomeScreen(
       0 -> EpisodeScreen(innerPaddingValues = innerPadding, viewModel = episodeViewModel)
       1 -> CharacterScreen(innerPadding, characterViewModel)
       2 -> LocationScreen(innerPadding,locationViewModel)
-      3 -> SettingScreen()
+      3 -> SettingScreen(innerPadding, navigateToAboutScreen, navigateToFavoriteScreen)
     }
   }
 }

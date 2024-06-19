@@ -1,5 +1,7 @@
 package presentation.navigation
 
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
@@ -8,6 +10,8 @@ import presentation.character.viewmodel.CharacterViewModel
 import presentation.episode.viewmodel.EpisodeViewModel
 import presentation.location.viewmodel.LocationViewModel
 import presentation.navigation.directions.HomeComposable
+import presentation.navigation.directions.aboutComposable
+import presentation.navigation.directions.favoriteComposable
 import presentation.navigation.directions.splashComposable
 import presentation.util.ConstantNavigator
 
@@ -24,7 +28,9 @@ fun SetupNavigation(
 
   NavHost(
     navController = navController,
-    startDestination = ConstantNavigator.SPLASH_SCREEN
+    startDestination = ConstantNavigator.SPLASH_SCREEN,
+    enterTransition = { EnterTransition.None },
+    exitTransition = { ExitTransition.None }
   ){
     splashComposable(
       navigateToHomeScreen =  screen.home
@@ -32,7 +38,11 @@ fun SetupNavigation(
     HomeComposable(
       episodeViewModel = episodeViewModel,
       characterViewModel= characterViewModel,
-      locationViewModel = locationViewModel
+      locationViewModel = locationViewModel,
+      navigateToAboutScreen = screen.about,
+      navigateToFavoriteScreen = screen.favorite
     )
+    aboutComposable()
+    favoriteComposable()
   }
 }
