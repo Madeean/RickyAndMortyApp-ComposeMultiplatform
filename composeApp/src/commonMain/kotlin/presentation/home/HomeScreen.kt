@@ -44,6 +44,7 @@ fun HomeScreen(
   locationViewModel: LocationViewModel,
   navigateToAboutScreen:() ->Unit,
   navigateToFavoriteScreen:() ->Unit,
+  navigateToEpisodeDetailScreen:(Int) ->Unit,
 ) {
   var selectedItem by remember { mutableStateOf(0) }
   val items = listOf("Episode", "Character", "Location", "Settings")
@@ -114,7 +115,7 @@ fun HomeScreen(
     }
   ) { innerPadding ->
     when (selectedItem) {
-      0 -> EpisodeScreen(innerPaddingValues = innerPadding, viewModel = episodeViewModel)
+      0 -> EpisodeScreen(innerPaddingValues = innerPadding, viewModel = episodeViewModel,navigateToEpisodeDetailScreen)
       1 -> CharacterScreen(innerPadding, characterViewModel)
       2 -> LocationScreen(innerPadding,locationViewModel)
       3 -> SettingScreen(innerPadding, navigateToAboutScreen, navigateToFavoriteScreen)

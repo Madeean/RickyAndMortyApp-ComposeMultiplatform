@@ -17,4 +17,11 @@ class EpisodeDomainUseCaseImpl(
     return repository.getEpisodePaging(scope,name)
   }
 
+  override fun getDetailEpisode(
+    scope: CoroutineScope,
+    idEpisode: Int
+  ): Flow<RequestState<EpisodeDetailModelDomain>> {
+    return repository.getDetailEpisode(scope,idEpisode)
+  }
+
 }

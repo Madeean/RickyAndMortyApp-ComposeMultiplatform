@@ -4,6 +4,7 @@ import app.cash.paging.PagingData
 import domain.character.model.network.CharacterDetailModelDomain
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
+import util.RequestState
 
 interface CharacterDomainRepository {
   fun getCharacterPaging(
@@ -15,4 +16,7 @@ interface CharacterDomainRepository {
     gender: String
   ): Flow<PagingData<CharacterDetailModelDomain>>
 
+  fun getListCharacter(
+    characterId: String
+  ): Flow<RequestState<List<CharacterDetailModelDomain>>>
 }

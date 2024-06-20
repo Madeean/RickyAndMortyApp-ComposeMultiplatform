@@ -55,7 +55,11 @@ import util.LoaderShow
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun EpisodeScreen(innerPaddingValues: PaddingValues, viewModel: EpisodeViewModel) {
+fun EpisodeScreen(
+  innerPaddingValues: PaddingValues,
+  viewModel: EpisodeViewModel,
+  navigateToDetailScreen: (Int) -> Unit
+) {
 
   val dataPaging by rememberUpdatedState(viewModel.episode.collectAsLazyPagingItems())
 
@@ -107,7 +111,7 @@ fun EpisodeScreen(innerPaddingValues: PaddingValues, viewModel: EpisodeViewModel
       items(dataPaging.itemCount) { index ->
         val item = dataPaging[index]
         item?.let {
-          EpisodeItem(it)
+          EpisodeItem(it,navigateToDetailScreen)
         }
       }
 
@@ -155,6 +159,7 @@ fun EpisodeScreen(innerPaddingValues: PaddingValues, viewModel: EpisodeViewModel
               )
             }
           }
+
           append is LoadStateError -> {
             item {
               ErrorItem(
@@ -192,7 +197,7 @@ fun EpisodeScreen(innerPaddingValues: PaddingValues, viewModel: EpisodeViewModel
 }
 
 @Composable
-fun EpisodeItem(data: EpisodeDetailModelDomain) {
+fun EpisodeItem(data: EpisodeDetailModelDomain, navigateToDetailScreen: (Int) -> Unit) {
   Card(
     modifier = Modifier
       .fillMaxWidth()
@@ -238,7 +243,7 @@ fun EpisodeItem(data: EpisodeDetailModelDomain) {
         )
       }
       Button(
-        onClick = { /* Handle button click */ },
+        onClick = { navigateToDetailScreen(data.id) },
         modifier = Modifier.align(Alignment.BottomEnd),
         colors = ButtonDefaults.buttonColors(
           containerColor = biru,

@@ -46,11 +46,11 @@ import app.cash.paging.LoadStateLoading
 import app.cash.paging.LoadStateNotLoading
 import app.cash.paging.compose.collectAsLazyPagingItems
 import domain.location.model.network.LocationDetailModelDomain
-import presentation.character.screen.CustomOutlinedTextField
 import presentation.location.viewmodel.LocationViewModel
 import presentation.theme.abuabumuda
 import presentation.theme.biru
 import presentation.theme.black
+import presentation.util.CustomOutlinedTextField
 import util.ErrorItem
 import util.ErrorView
 import util.LoaderShow
@@ -153,7 +153,7 @@ fun LocationScreen(innerPaddingValues: PaddingValues, viewModel: LocationViewMod
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                androidx.compose.material3.Text("Open Filter")
+                Text("Open Filter")
             }
         }
 

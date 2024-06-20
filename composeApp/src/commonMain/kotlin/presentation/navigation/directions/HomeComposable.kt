@@ -16,6 +16,8 @@ fun NavGraphBuilder.HomeComposable(
   locationViewModel: LocationViewModel,
   navigateToAboutScreen:() ->Unit,
   navigateToFavoriteScreen:() ->Unit,
+  navigateToEpisodeDetailScreen:(Int) ->Unit,
+//  navigateToEpisodeDetailScreen:(detailEpisode: EpisodeDetailModelDomain) ->Unit,
 ){
   composable(
     route = ConstantNavigator.HOME_SCREEN,
@@ -27,7 +29,8 @@ fun NavGraphBuilder.HomeComposable(
       characterViewModel = characterViewModel,
       locationViewModel = locationViewModel,
       navigateToAboutScreen = navigateToAboutScreen,
-      navigateToFavoriteScreen = navigateToFavoriteScreen
+      navigateToFavoriteScreen = navigateToFavoriteScreen,
+      navigateToEpisodeDetailScreen = navigateToEpisodeDetailScreen
     )
   }
 }
