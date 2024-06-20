@@ -13,4 +13,6 @@ interface EpisodeDomainUseCase {
 //  ):Flow<RequestState<List<EpisodeDetailModelDomain>>>
 
   fun getEpisodePaging(scope: CoroutineScope,name: String): Flow<PagingData<EpisodeDetailModelDomain>>
+
+  fun getDetailEpisode(scope: CoroutineScope, idEpisode: Int): Flow<RequestState<EpisodeDetailModelDomain>>
 }

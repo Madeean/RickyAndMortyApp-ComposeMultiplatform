@@ -37,7 +37,7 @@ data class EpisodeDetailModelDataResponse(
       }
     }
 
-    private fun transform(model:EpisodeDetailModelDataResponse?): EpisodeDetailModelDomain {
+    fun transform(model:EpisodeDetailModelDataResponse?): EpisodeDetailModelDomain {
       return EpisodeDetailModelDomain(
         model?.id ?: 0,
         model?.name ?: "",

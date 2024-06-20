@@ -2,9 +2,9 @@ package domain.character
 
 import app.cash.paging.PagingData
 import domain.character.model.network.CharacterDetailModelDomain
-import domain.episode.model.network.EpisodeDetailModelDomain
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
+import util.RequestState
 
 interface CharacterDomainUseCase {
   fun getEpisodePaging(
@@ -15,4 +15,8 @@ interface CharacterDomainUseCase {
     type: String,
     gender: String
   ): Flow<PagingData<CharacterDetailModelDomain>>
+
+  fun getListCharacter(
+    characterId: String
+  ): Flow<RequestState<List<CharacterDetailModelDomain>>>
 }

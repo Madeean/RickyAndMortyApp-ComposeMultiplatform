@@ -48,7 +48,7 @@ data class CharacterDetailModelDataResponse (
       }
     }
 
-    private fun transform(model:CharacterDetailModelDataResponse): CharacterDetailModelDomain {
+    fun transform(model:CharacterDetailModelDataResponse): CharacterDetailModelDomain {
       return CharacterDetailModelDomain(
         id = model.id?: 0,
         name = model.name ?: "",

@@ -5,14 +5,16 @@ import app.cash.paging.PagingConfig
 import app.cash.paging.PagingData
 import app.cash.paging.cachedIn
 import data.network.ApiService
+import data.repository.datastore.character.CharacterDataSource
 import data.repository.datastore.character.CharacterPagingDataSource
-import data.repository.datastore.episode.EpisodePagingDataSource
 import domain.character.CharacterDomainRepository
 import domain.character.model.network.CharacterDetailModelDomain
-import domain.episode.EpisodeDomainRepository
 import io.ktor.client.HttpClient
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import util.RequestState
+import util.RequestState.Loading
 
 class CharacterDomainRepositoryImpl(
   private val httpClient: HttpClient,
@@ -31,4 +33,13 @@ class CharacterDomainRepositoryImpl(
     CharacterPagingDataSource(httpClient,apiService,name,status,species,type,gender)
   }
   ).flow.cachedIn(scope)
+
+  override fun getListCharacter(characterId: String): Flow<RequestState<List<CharacterDetailModelDomain>>> {
+    return flow{
+      emit(Loading)
+      val dataSource = CharacterDataSource(httpClient,apiService)
+      val data = dataSource.getListCharacter(characterId)
+      emit(data)
+    }
+  }
 }

@@ -14,23 +14,20 @@ class EpisodeDataStore(
   private val httpClient: HttpClient,
   private val apiService: ApiService
 ) {
-  suspend fun getAllEpisode(): RequestState<List<EpisodeDetailModelDomain>> {
-    println("MASUK 3")
+
+  suspend fun getDetailEpisode(episodeId: Int): RequestState<EpisodeDetailModelDomain> {
     return try {
-      val response: HttpResponse = httpClient.get(apiService.BASE_URL_EPISODE)
-      println("MASUK 4 $response")
+      val response = httpClient.get("${apiService.BASE_URL_EPISODE}/$episodeId")
 
       if (response.status.value == 200) {
-        val apiResponse = response.body<EpisodeModelDataResponse>()
-        val data = EpisodeDetailModelDataResponse.transforms(apiResponse.results)
-        println("MASUK 5 $data")
+        val apiResponse = response.body<EpisodeDetailModelDataResponse>()
+        val data = EpisodeDetailModelDataResponse.transform(apiResponse)
         RequestState.Success(data)
       } else {
         val error = Throwable(message = "HTTP ERROR ${response.status.value}")
         RequestState.Error(error)
       }
     } catch (e: Exception) {
-      println("MASUK 6 $e")
       RequestState.Error(e)
     }
   }

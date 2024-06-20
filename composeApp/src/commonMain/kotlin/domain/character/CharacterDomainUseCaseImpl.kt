@@ -2,10 +2,9 @@ package domain.character
 
 import app.cash.paging.PagingData
 import domain.character.model.network.CharacterDetailModelDomain
-import domain.episode.EpisodeDomainRepository
-import domain.episode.EpisodeDomainUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
+import util.RequestState
 
 class CharacterDomainUseCaseImpl(
   private val repository: CharacterDomainRepository
@@ -19,5 +18,9 @@ class CharacterDomainUseCaseImpl(
     gender: String
   ): Flow<PagingData<CharacterDetailModelDomain>> {
     return repository.getCharacterPaging(scope,name,status,species,type,gender)
+  }
+
+  override fun getListCharacter(characterId: String): Flow<RequestState<List<CharacterDetailModelDomain>>> {
+    return repository.getListCharacter(characterId)
   }
 }

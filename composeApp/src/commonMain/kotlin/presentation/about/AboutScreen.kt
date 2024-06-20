@@ -1,12 +1,13 @@
 package presentation.about
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.Icons.AutoMirrored.Filled
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -34,7 +35,9 @@ import rickandmortyapp.composeapp.generated.resources.rickandmorty
 @Composable
 fun AboutScreen(onBackClicked: NavController) {
   Scaffold(
-    modifier = Modifier.fillMaxSize().background(abuabumuda),
+    contentColor = abuabumuda,
+    containerColor = abuabumuda,
+    modifier = Modifier.fillMaxSize(),
     topBar = {
       Surface(
         shape = RoundedCornerShape(bottomEnd = 16.dp, bottomStart = 16.dp),
@@ -56,7 +59,7 @@ fun AboutScreen(onBackClicked: NavController) {
                 onBackClicked.navigateUp()
               }
             ) {
-              Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null)
+              Icon(imageVector = Filled.ArrowBack, contentDescription = null)
             }
           }
         )

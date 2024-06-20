@@ -23,4 +23,7 @@ class Screens(navController: NavHostController) {
   val favorite: () -> Unit = {
     navController.navigate(route = "favorite")
   }
+  val episodeDetail: (Int) -> Unit = {
+    navController.navigate(route = "episode_detail/$it")
+  }
 }
