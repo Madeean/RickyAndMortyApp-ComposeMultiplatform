@@ -64,7 +64,7 @@ fun CharacterScreen(innerPaddingValues: PaddingValues, viewModel: CharacterViewM
   val listStatus = listOf("all", "alive", "dead", "unknown")
 
   LaunchedEffect(key1 = true) {
-    viewModel.getCharacterViewModel()
+    viewModel.getCharacterPaging()
   }
 
   val sheetState = rememberModalBottomSheetState()
@@ -124,7 +124,7 @@ fun CharacterScreen(innerPaddingValues: PaddingValues, viewModel: CharacterViewM
           onClick = {
             val genderData = if (selectedGender == "all") "" else selectedGender
             val statusData = if (selectedStatus == "all") "" else selectedStatus
-            viewModel.getCharacterViewModel(
+            viewModel.getCharacterPaging(
               name = nameOnChanged,
               status = statusData,
               species = speciesOnChanged,

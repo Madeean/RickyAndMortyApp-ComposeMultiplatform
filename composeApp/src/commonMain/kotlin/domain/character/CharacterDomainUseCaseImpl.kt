@@ -9,7 +9,7 @@ import util.RequestState
 class CharacterDomainUseCaseImpl(
   private val repository: CharacterDomainRepository
 ): CharacterDomainUseCase {
-  override fun getEpisodePaging(
+  override fun getCharacterPaging(
     scope: CoroutineScope,
     name: String,
     status: String,

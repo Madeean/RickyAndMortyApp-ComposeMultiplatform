@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 import util.RequestState
 
 interface CharacterDomainUseCase {
-  fun getEpisodePaging(
+  fun getCharacterPaging(
     scope: CoroutineScope,
     name: String,
     status: String,
