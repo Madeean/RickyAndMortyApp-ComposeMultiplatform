@@ -45,6 +45,8 @@ fun SetupNavigation(
     aboutComposable(
       onBackClicked = navController
     )
-    favoriteComposable()
+    favoriteComposable(
+      onBackClicked = navController
+    )
   }
 }
