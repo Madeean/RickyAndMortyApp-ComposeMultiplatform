@@ -61,7 +61,8 @@ fun SetupNavigation(
     characterDetailComposable(
       onBackClicked = navController,
       episodeViewModel = episodeViewModel,
-      characterViewModel = characterViewModel
+      characterViewModel = characterViewModel,
+      navigateToDetailEpisode = screen.episodeDetail
     )
   }
 }

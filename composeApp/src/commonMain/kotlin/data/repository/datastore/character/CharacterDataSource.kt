@@ -28,4 +28,21 @@ class CharacterDataSource(
       RequestState.Error(e)
     }
   }
+
+  suspend fun getDetailCharacter(characterId: Int): RequestState<CharacterDetailModelDomain>{
+    return try{
+      val response = httpClient.get("${apiService.BASE_URL_CHARACTER}/$characterId")
+
+      if (response.status.value == 200) {
+        val apiResponse = response.body<CharacterDetailModelDataResponse>()
+        val data = CharacterDetailModelDataResponse.transform(apiResponse)
+        RequestState.Success(data)
+      } else {
+        val error = Throwable(message = "HTTP ERROR ${response.status.value}")
+        RequestState.Error(error)
+      }
+    }catch (e:Exception){
+      RequestState.Error(e)
+    }
+  }
 }

@@ -3,27 +3,36 @@ package presentation.util
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons.AutoMirrored
 import androidx.compose.material.icons.Icons.Filled
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.material3.TopAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -38,18 +47,25 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import domain.character.model.network.CharacterDetailModelDomain
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
+import org.jetbrains.compose.resources.painterResource
+import presentation.theme.biru
 import presentation.theme.black
+import presentation.theme.merah
 import presentation.theme.white
+import rickandmortyapp.composeapp.generated.resources.Res.drawable
+import rickandmortyapp.composeapp.generated.resources.favorite_full
+import rickandmortyapp.composeapp.generated.resources.favorite_outline
 
 @Composable
 fun NonlazyGrid(
   columns: Int,
   itemCount: Int,
   modifier: Modifier = Modifier,
-  content: @Composable() (Int) -> Unit
+  content: @Composable (Int) -> Unit
 ) {
   Column(modifier = modifier) {
     var rows = (itemCount / columns)
@@ -210,6 +226,87 @@ fun DropdownGender(
           },
           contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding
         )
+      }
+    }
+  }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun DefaultAppBar(title: String, useIconBack: Boolean, navController: NavController? = null) {
+  Surface(
+    shape = RoundedCornerShape(bottomEnd = 16.dp, bottomStart = 16.dp),
+  ) {
+    CenterAlignedTopAppBar(
+      colors = TopAppBarColors(
+        containerColor = biru,
+        scrolledContainerColor = biru,
+        navigationIconContentColor = white,
+        titleContentColor = white,
+        actionIconContentColor = white
+      ),
+      title = {
+        Text(title)
+      },
+      navigationIcon = {
+        if(useIconBack && navController != null){
+          IconButton(
+            onClick = {
+            navController.navigateUp()
+            }
+          ) {
+            Icon(imageVector = AutoMirrored.Filled.ArrowBack, contentDescription = null)
+          }
+        }
+      }
+    )
+  }
+}
+
+@Composable
+fun ColumnScope.DefaultFavoriteCard(
+  isFavorite: Boolean,
+  changeFavorite: (Boolean) -> Unit
+) {
+  Card(
+    modifier = Modifier.align(Alignment.End).padding(end = 20.dp),
+    shape = RoundedCornerShape(12.dp),
+    colors = CardDefaults.cardColors(
+      containerColor = white
+    )
+  ) {
+    Row(
+      modifier = Modifier.padding(15.dp),
+      verticalAlignment = Alignment.CenterVertically
+    ) {
+      Text("Favorite", color = black, fontSize = 20.sp)
+      Spacer(modifier = Modifier.width(10.dp))
+      if (isFavorite) {
+        IconButton(
+          onClick = {
+            changeFavorite(isFavorite.not())
+          },
+        ) {
+          Icon(
+            painter = painterResource(drawable.favorite_full),
+            contentDescription = null,
+            modifier = Modifier.size(30.dp),
+            tint = merah
+          )
+        }
+      } else {
+        IconButton(
+          onClick = {
+            changeFavorite(isFavorite.not())
+          },
+        ) {
+          Icon(
+            painter = painterResource(drawable.favorite_outline),
+            contentDescription = null,
+            modifier = Modifier.size(30.dp),
+            tint = merah
+          )
+        }
       }
     }
   }

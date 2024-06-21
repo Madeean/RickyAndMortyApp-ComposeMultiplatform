@@ -20,6 +20,7 @@ class CharacterDomainRepositoryImpl(
   private val httpClient: HttpClient,
   private val apiService: ApiService
 ): CharacterDomainRepository {
+  private val dataSource = CharacterDataSource(httpClient,apiService)
   override fun getCharacterPaging(
     scope: CoroutineScope,
     name: String,
@@ -37,8 +38,15 @@ class CharacterDomainRepositoryImpl(
   override fun getListCharacter(characterId: String): Flow<RequestState<List<CharacterDetailModelDomain>>> {
     return flow{
       emit(Loading)
-      val dataSource = CharacterDataSource(httpClient,apiService)
       val data = dataSource.getListCharacter(characterId)
+      emit(data)
+    }
+  }
+
+  override fun getDetailCharacter(characterId: Int): Flow<RequestState<CharacterDetailModelDomain>> {
+    return flow{
+      emit(Loading)
+      val data = dataSource.getDetailCharacter(characterId)
       emit(data)
     }
   }

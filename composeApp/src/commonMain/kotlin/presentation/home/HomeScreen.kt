@@ -6,7 +6,6 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -16,7 +15,6 @@ import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -35,6 +33,7 @@ import presentation.theme.abuabumuda
 import presentation.theme.biru
 import presentation.theme.black
 import presentation.theme.white
+import presentation.util.DefaultAppBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -42,10 +41,10 @@ fun HomeScreen(
   episodeViewModel: EpisodeViewModel,
   characterViewModel: CharacterViewModel,
   locationViewModel: LocationViewModel,
-  navigateToAboutScreen:() ->Unit,
-  navigateToFavoriteScreen:() ->Unit,
-  navigateToEpisodeDetailScreen:(Int) ->Unit,
-  navigateToCharacterDetailScreen:(Int) ->Unit,
+  navigateToAboutScreen: () -> Unit,
+  navigateToFavoriteScreen: () -> Unit,
+  navigateToEpisodeDetailScreen: (Int) -> Unit,
+  navigateToCharacterDetailScreen: (Int) -> Unit,
 ) {
   var selectedItem by remember { mutableStateOf(0) }
   val items = listOf("Episode", "Character", "Location", "Settings")
@@ -54,28 +53,16 @@ fun HomeScreen(
     contentColor = abuabumuda,
     containerColor = abuabumuda,
     topBar = {
-      Surface(
-        shape = RoundedCornerShape(bottomEnd = 16.dp, bottomStart = 16.dp),
-      ) {
-        CenterAlignedTopAppBar(
-
-          colors = TopAppBarColors(
-            containerColor = biru,
-            scrolledContainerColor = biru,
-            navigationIconContentColor = white,
-            titleContentColor = white,
-            actionIconContentColor = white
-          ),
-          title = {
-            when (selectedItem) {
-              0 -> Text("Episode")
-              1 -> Text("Character")
-              2 -> Text("Location")
-              3 -> Text("Settings")
-            }
-          }
-        )
-      }
+      DefaultAppBar(
+        when (selectedItem) {
+          0 -> "Episode"
+          1 -> "Character"
+          2 -> "Location"
+          3 -> "Settings"
+          else -> ""
+        },
+        false
+      )
     },
     bottomBar = {
       Surface(
@@ -116,9 +103,14 @@ fun HomeScreen(
     }
   ) { innerPadding ->
     when (selectedItem) {
-      0 -> EpisodeScreen(innerPaddingValues = innerPadding, viewModel = episodeViewModel,navigateToEpisodeDetailScreen)
-      1 -> CharacterScreen(innerPadding, characterViewModel,navigateToCharacterDetailScreen )
-      2 -> LocationScreen(innerPadding,locationViewModel)
+      0 -> EpisodeScreen(
+        innerPaddingValues = innerPadding,
+        viewModel = episodeViewModel,
+        navigateToEpisodeDetailScreen
+      )
+
+      1 -> CharacterScreen(innerPadding, characterViewModel, navigateToCharacterDetailScreen)
+      2 -> LocationScreen(innerPadding, locationViewModel)
       3 -> SettingScreen(innerPadding, navigateToAboutScreen, navigateToFavoriteScreen)
     }
   }

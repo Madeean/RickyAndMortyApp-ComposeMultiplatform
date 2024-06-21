@@ -19,6 +19,7 @@ class EpisodeDomainRepositoryImpl(
   private val httpClient: HttpClient,
   private val apiService: ApiService
 ) : EpisodeDomainRepository {
+  private val dataSource = EpisodeDataStore(httpClient, apiService)
 
   override fun getEpisodePaging(
     scope: CoroutineScope,
@@ -36,8 +37,15 @@ class EpisodeDomainRepositoryImpl(
   ): Flow<RequestState<EpisodeDetailModelDomain>> {
     return flow {
       emit(RequestState.Loading)
-      val dataSource = EpisodeDataStore(httpClient, apiService)
       val data = dataSource.getDetailEpisode(idEpisode)
+      emit(data)
+    }
+  }
+
+  override fun getEpisodeFromUrl(url: String): Flow<RequestState<List<EpisodeDetailModelDomain>>> {
+    return flow{
+      emit(RequestState.Loading)
+      val data = dataSource.getListEpisodeFromUrl(url)
       emit(data)
     }
   }

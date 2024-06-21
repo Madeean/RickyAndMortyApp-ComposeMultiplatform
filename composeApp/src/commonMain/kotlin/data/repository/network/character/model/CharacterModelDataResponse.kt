@@ -54,7 +54,7 @@ data class CharacterDetailModelDataResponse (
         name = model.name ?: "",
         status = model.status ?: "",
         species = model.species ?: "",
-        type = model.type ?: "",
+        type = model.type ?: "Unknown",
         gender = model.gender ?:"",
         origin = CharacterDetailOriginModelDomain(
           name = model.origin?.name ?: "",
