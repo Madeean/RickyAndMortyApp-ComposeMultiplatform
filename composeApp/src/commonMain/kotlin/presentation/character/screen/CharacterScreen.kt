@@ -50,7 +50,11 @@ import util.LoaderShow
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CharacterScreen(innerPaddingValues: PaddingValues, viewModel: CharacterViewModel) {
+fun CharacterScreen(
+  innerPaddingValues: PaddingValues,
+  viewModel: CharacterViewModel,
+  navigateToCharacterDetailScreen: (Int) -> Unit
+) {
   val dataPaging by rememberUpdatedState(viewModel.character.collectAsLazyPagingItems())
   var nameOnChanged by remember { mutableStateOf("") }
   var speciesOnChanged by remember { mutableStateOf("") }
@@ -187,7 +191,7 @@ fun CharacterScreen(innerPaddingValues: PaddingValues, viewModel: CharacterViewM
         items(dataPaging.itemCount) { index ->
           val item = dataPaging[index]
           item?.let {
-            CharacterItem(it)
+            CharacterItem(it,navigateToCharacterDetailScreen)
           }.let {
             showLoading = false
           }

@@ -67,6 +67,7 @@ fun EpisodeDetailScreen(
   episodeViewModel: EpisodeViewModel,
   characterViewModel: CharacterViewModel,
   episodeId: Int,
+  navigateToCharacterDetailScreen: (Int) -> Unit
 ) {
   var isEpisodeFavorite by remember { mutableStateOf(false) }
   val scrollState = rememberScrollState()
@@ -139,7 +140,8 @@ fun EpisodeDetailScreen(
           innerPadding,
           scrollState,
           isEpisodeFavorite,
-          characterList
+          characterList,
+          navigateToCharacterDetailScreen
         ) { favorite ->
           isEpisodeFavorite = favorite
         }
@@ -162,7 +164,8 @@ private fun EpisodeDetailSuccessView(
   scrollState: ScrollState,
   isEpisodeFavorite: Boolean,
   characterList: RequestState<List<CharacterDetailModelDomain>>,
-  changeEpisodeFavorite: (Boolean) -> Unit
+  navigateToCharacterDetailScreen: (Int) -> Unit,
+  changeEpisodeFavorite: (Boolean) -> Unit,
 ) {
   Column(
     modifier = Modifier.padding(innerPaddingValues).fillMaxSize().verticalScroll(scrollState)
@@ -285,7 +288,7 @@ private fun EpisodeDetailSuccessView(
               columns = 2,
               itemCount = dataList.size,
             ) {
-              CharacterItem(dataList[it])
+              CharacterItem(dataList[it], navigateToCharacterDetailScreen)
             }
           }
 

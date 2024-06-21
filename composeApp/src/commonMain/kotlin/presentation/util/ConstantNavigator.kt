@@ -6,6 +6,8 @@ object ConstantNavigator{
   const val ABOUT_SCREEN = "about"
   const val FAVORITE_SCREEN = "favorite"
   const val EPISODE_DETAIL_SCREEN = "episode_detail/{episodeId}"
+  const val CHARACTER_DETAIL_SCREEN = "character_detail/{characterId}"
 
   const val EPISODE_DETAIL_ARGUMENT_KEY = "episodeId"
+  const val CHARACTER_DETAIL_ARGUMENT_KEY = "characterId"
 }
