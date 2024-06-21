@@ -1,5 +1,6 @@
 package presentation.util
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -78,9 +79,14 @@ fun NonlazyGrid(
 }
 
 @Composable
-fun CharacterItem(data: CharacterDetailModelDomain) {
+fun CharacterItem(
+  data: CharacterDetailModelDomain,
+  navigateToCharacterDetailScreen: (Int) -> Unit
+) {
   Card(
-    Modifier.fillMaxWidth().height(210.dp).padding(5.dp),
+    modifier = Modifier.fillMaxWidth().height(210.dp).padding(5.dp).clickable {
+      navigateToCharacterDetailScreen(data.id)
+    },
     shape = RoundedCornerShape(12.dp),
     elevation = CardDefaults.cardElevation(5.dp),
     colors = CardDefaults.cardColors(containerColor = white)

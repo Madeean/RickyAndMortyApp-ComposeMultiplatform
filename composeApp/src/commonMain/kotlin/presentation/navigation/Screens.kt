@@ -26,4 +26,7 @@ class Screens(navController: NavHostController) {
   val episodeDetail: (Int) -> Unit = {
     navController.navigate(route = "episode_detail/$it")
   }
+  val characterDetail: (Int) -> Unit = {
+    navController.navigate(route = "character_detail/$it")
+  }
 }

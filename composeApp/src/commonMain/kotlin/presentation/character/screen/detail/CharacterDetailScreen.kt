@@ -1,7 +1,5 @@
-package presentation.about
+package presentation.character.screen.detail
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -17,22 +15,23 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import org.jetbrains.compose.resources.painterResource
-import org.jetbrains.compose.resources.stringResource
+import presentation.character.viewmodel.CharacterViewModel
+import presentation.episode.viewmodel.EpisodeViewModel
 import presentation.theme.abuabumuda
 import presentation.theme.biru
 import presentation.theme.black
 import presentation.theme.white
-import rickandmortyapp.composeapp.generated.resources.Res
-import rickandmortyapp.composeapp.generated.resources.penjelasan_rickandmorty
-import rickandmortyapp.composeapp.generated.resources.rickandmorty
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AboutScreen(onBackClicked: NavController) {
+fun CharacterDetailScreen(
+  onBackClicked: NavController,
+  episodeViewModel: EpisodeViewModel,
+  characterViewModel: CharacterViewModel,
+  characterId: Int,
+) {
   Scaffold(
     contentColor = abuabumuda,
     containerColor = abuabumuda,
@@ -50,7 +49,7 @@ fun AboutScreen(onBackClicked: NavController) {
             actionIconContentColor = white
           ),
           title = {
-            Text("About this Application")
+            Text("Detail Character")
           },
           navigationIcon = {
             IconButton(
@@ -64,12 +63,7 @@ fun AboutScreen(onBackClicked: NavController) {
         )
       }
     },
-  ) {
-    Column(modifier = Modifier.padding(it)) {
-      Image(painter = painterResource(Res.drawable.rickandmorty), contentDescription = null)
-      Text(text = stringResource(Res.string.penjelasan_rickandmorty), modifier = Modifier.padding(horizontal = 12.dp),
-        textAlign = TextAlign.Justify, color = black
-        )
-    }
+  ) { innerPadding ->
+    Text("Detail character", modifier = Modifier.padding(innerPadding), color = black)
   }
 }
