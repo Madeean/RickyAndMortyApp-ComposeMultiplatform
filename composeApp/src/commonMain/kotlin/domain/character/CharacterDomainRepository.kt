@@ -19,4 +19,8 @@ interface CharacterDomainRepository {
   fun getListCharacter(
     characterId: String
   ): Flow<RequestState<List<CharacterDetailModelDomain>>>
+
+  fun getDetailCharacter(
+    characterId: Int
+  ): Flow<RequestState<CharacterDetailModelDomain>>
 }

@@ -21,6 +21,9 @@ class CharacterViewModel(private val useCase: CharacterDomainUseCase) : ViewMode
     MutableStateFlow(RequestState.Idle)
   val listCharacter: StateFlow<RequestState<List<CharacterDetailModelDomain>>> = _listCharacter
 
+  private var _detailCharacter: MutableStateFlow<RequestState<CharacterDetailModelDomain>> = MutableStateFlow(RequestState.Idle)
+  val detailCharacter: StateFlow<RequestState<CharacterDetailModelDomain>> = _detailCharacter
+
   fun getCharacterPaging(
     name: String = "",
     status: String = "",
@@ -45,5 +48,14 @@ class CharacterViewModel(private val useCase: CharacterDomainUseCase) : ViewMode
     }
   }
 
+  fun getDetailCharacter(
+    characterId: Int
+  ){
+    viewModelScope.launch {
+      useCase.getDetailCharacter(characterId).collect{
+        _detailCharacter.value = it
+      }
+    }
+  }
 
 }

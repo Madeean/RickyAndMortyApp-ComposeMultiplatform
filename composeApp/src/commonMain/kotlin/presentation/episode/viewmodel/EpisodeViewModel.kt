@@ -18,10 +18,15 @@ class EpisodeViewModel(private val useCase: EpisodeDomainUseCase) : ViewModel() 
     MutableStateFlow(PagingData.empty())
   val episode: StateFlow<PagingData<EpisodeDetailModelDomain>> = _episode
 
-  private val _episodeDetail: MutableStateFlow<RequestState<EpisodeDetailModelDomain>> = MutableStateFlow(RequestState.Idle)
+  private val _episodeDetail: MutableStateFlow<RequestState<EpisodeDetailModelDomain>> =
+    MutableStateFlow(RequestState.Idle)
   val episodeDetail: StateFlow<RequestState<EpisodeDetailModelDomain>> = _episodeDetail
 
-  fun getEpisodePaging(name:String = ""){
+  private val _listEpisodeFromUrl: MutableStateFlow<RequestState<List<EpisodeDetailModelDomain>>> =
+    MutableStateFlow(RequestState.Idle)
+  val listEpisodeFromUrl: StateFlow<RequestState<List<EpisodeDetailModelDomain>>> = _listEpisodeFromUrl
+
+  fun getEpisodePaging(name: String = "") {
     viewModelScope.launch {
       useCase.getEpisodePaging(viewModelScope, name).collectLatest { it ->
         _episode.value = it
@@ -29,10 +34,18 @@ class EpisodeViewModel(private val useCase: EpisodeDomainUseCase) : ViewModel() 
     }
   }
 
-  fun getDetailEpisode(episodeId:Int){
+  fun getDetailEpisode(episodeId: Int) {
     viewModelScope.launch {
-      useCase.getDetailEpisode(viewModelScope,episodeId).collect{
+      useCase.getDetailEpisode(viewModelScope, episodeId).collect {
         _episodeDetail.value = it
+      }
+    }
+  }
+
+  fun getListEpisodeFromUrl(url: String){
+    viewModelScope.launch {
+      useCase.getEpisodeFromUrl(url).collect{
+        _listEpisodeFromUrl.value = it
       }
     }
   }

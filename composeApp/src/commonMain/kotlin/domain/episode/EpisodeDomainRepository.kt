@@ -7,12 +7,17 @@ import kotlinx.coroutines.flow.Flow
 import util.RequestState
 
 interface EpisodeDomainRepository {
-//   fun getAllEpisode(
-//    name:String,
-//    viewmodelScope: CoroutineScope
-//  ):Flow<RequestState<List<EpisodeDetailModelDomain>>>
 
-  fun getEpisodePaging(scope: CoroutineScope,name: String): Flow<PagingData<EpisodeDetailModelDomain>>
+  fun getEpisodePaging(
+    scope: CoroutineScope,
+    name: String
+  ): Flow<PagingData<EpisodeDetailModelDomain>>
 
-  fun getDetailEpisode(scope: CoroutineScope, idEpisode: Int): Flow<RequestState<EpisodeDetailModelDomain>>
+  fun getDetailEpisode(
+    scope: CoroutineScope,
+    idEpisode: Int
+  ): Flow<RequestState<EpisodeDetailModelDomain>>
+
+  fun getEpisodeFromUrl(url: String): Flow<RequestState<List<EpisodeDetailModelDomain>>>
+
 }

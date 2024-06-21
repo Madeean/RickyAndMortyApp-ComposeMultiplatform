@@ -15,7 +15,8 @@ import presentation.util.ConstantNavigator
 fun NavGraphBuilder.characterDetailComposable(
   onBackClicked: NavController,
   episodeViewModel: EpisodeViewModel,
-  characterViewModel: CharacterViewModel
+  characterViewModel: CharacterViewModel,
+  navigateToDetailEpisode: (Int) ->Unit
 ) {
   composable(
     route = ConstantNavigator.CHARACTER_DETAIL_SCREEN,
@@ -26,6 +27,6 @@ fun NavGraphBuilder.characterDetailComposable(
     })
   ) {
     val characterId = it.arguments?.getInt(ConstantNavigator.CHARACTER_DETAIL_ARGUMENT_KEY) ?: 0
-    CharacterDetailScreen(onBackClicked, episodeViewModel, characterViewModel, characterId)
+    CharacterDetailScreen(onBackClicked, episodeViewModel, characterViewModel, characterId, navigateToDetailEpisode)
   }
 }

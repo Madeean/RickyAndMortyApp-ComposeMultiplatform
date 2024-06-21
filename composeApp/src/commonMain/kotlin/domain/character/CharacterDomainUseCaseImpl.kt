@@ -23,4 +23,8 @@ class CharacterDomainUseCaseImpl(
   override fun getListCharacter(characterId: String): Flow<RequestState<List<CharacterDetailModelDomain>>> {
     return repository.getListCharacter(characterId)
   }
+
+  override fun getDetailCharacter(characterId: Int): Flow<RequestState<CharacterDetailModelDomain>> {
+    return repository.getDetailCharacter(characterId)
+  }
 }
