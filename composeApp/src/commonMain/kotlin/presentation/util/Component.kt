@@ -11,19 +11,25 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons.AutoMirrored
 import androidx.compose.material.icons.Icons.Filled
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.material3.TopAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -38,9 +44,11 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import domain.character.model.network.CharacterDetailModelDomain
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
+import presentation.theme.biru
 import presentation.theme.black
 import presentation.theme.white
 
@@ -212,5 +220,37 @@ fun DropdownGender(
         )
       }
     }
+  }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun DefaultAppBar(title: String, useIconBack: Boolean, navController: NavController? = null) {
+  Surface(
+    shape = RoundedCornerShape(bottomEnd = 16.dp, bottomStart = 16.dp),
+  ) {
+    CenterAlignedTopAppBar(
+      colors = TopAppBarColors(
+        containerColor = biru,
+        scrolledContainerColor = biru,
+        navigationIconContentColor = white,
+        titleContentColor = white,
+        actionIconContentColor = white
+      ),
+      title = {
+        Text(title)
+      },
+      navigationIcon = {
+        if(useIconBack && navController != null){
+          IconButton(
+            onClick = {
+            navController.navigateUp()
+            }
+          ) {
+            Icon(imageVector = AutoMirrored.Filled.ArrowBack, contentDescription = null)
+          }
+        }
+      }
+    )
   }
 }

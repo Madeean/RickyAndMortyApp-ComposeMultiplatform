@@ -15,18 +15,14 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons.AutoMirrored.Filled
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -46,12 +42,12 @@ import org.jetbrains.compose.resources.painterResource
 import presentation.character.viewmodel.CharacterViewModel
 import presentation.episode.viewmodel.EpisodeViewModel
 import presentation.theme.abuabumuda
-import presentation.theme.biru
 import presentation.theme.black
 import presentation.theme.hitam
 import presentation.theme.merah
 import presentation.theme.white
 import presentation.util.CharacterItem
+import presentation.util.DefaultAppBar
 import presentation.util.NonlazyGrid
 import presentation.util.getIdFromUrl
 import rickandmortyapp.composeapp.generated.resources.Res
@@ -60,7 +56,6 @@ import rickandmortyapp.composeapp.generated.resources.favorite_outline
 import util.LoaderShow
 import util.RequestState
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EpisodeDetailScreen(
   onBackClicked: NavController,
@@ -91,31 +86,7 @@ fun EpisodeDetailScreen(
     containerColor = abuabumuda,
     modifier = Modifier.fillMaxSize(),
     topBar = {
-      Surface(
-        shape = RoundedCornerShape(bottomEnd = 16.dp, bottomStart = 16.dp),
-      ) {
-        CenterAlignedTopAppBar(
-          colors = TopAppBarColors(
-            containerColor = biru,
-            scrolledContainerColor = biru,
-            navigationIconContentColor = white,
-            titleContentColor = white,
-            actionIconContentColor = white
-          ),
-          title = {
-            Text("Detail Episode")
-          },
-          navigationIcon = {
-            IconButton(
-              onClick = {
-                onBackClicked.navigateUp()
-              }
-            ) {
-              Icon(imageVector = Filled.ArrowBack, contentDescription = null)
-            }
-          }
-        )
-      }
+      DefaultAppBar("Detail Episode", true, onBackClicked)
     },
   ) { innerPadding ->
     when (dataDetailEpisode) {
