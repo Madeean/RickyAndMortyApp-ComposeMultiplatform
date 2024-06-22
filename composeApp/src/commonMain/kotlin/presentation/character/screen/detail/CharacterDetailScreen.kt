@@ -63,6 +63,7 @@ fun CharacterDetailScreen(
   characterViewModel: CharacterViewModel,
   characterId: Int,
   navigateToDetailEpisode: (Int) -> Unit,
+  navigateToDetailLocation: (Int) -> Unit
 ) {
   var isCharacterFavorite by remember { mutableStateOf(false) }
   val detailCharacter by characterViewModel.detailCharacter.collectAsState()
@@ -109,6 +110,7 @@ fun CharacterDetailScreen(
         }
 
         CharacterDetailSuccessView(
+          navigateToDetailLocation,
           navigateToDetailEpisode,
           listEpisode,
           data.data,
@@ -132,6 +134,7 @@ fun CharacterDetailScreen(
 
 @Composable
 fun CharacterDetailSuccessView(
+  navigateToDetailLocation: (Int) -> Unit,
   navigateToDetailEpisode: (Int) -> Unit,
   listEpisode: RequestState<List<EpisodeDetailModelDomain>>,
   data: CharacterDetailModelDomain,
@@ -229,7 +232,10 @@ fun CharacterDetailSuccessView(
           )
           Button(
             enabled = data.location.url.isNotBlank(),
-            onClick = { },
+            onClick = {
+              val locationId = getIdFromUrl(data.location.url)
+              navigateToDetailLocation(locationId)
+            },
             colors = ButtonDefaults.buttonColors(
               containerColor = biru,
               contentColor = white,
@@ -278,7 +284,10 @@ fun CharacterDetailSuccessView(
           )
           Button(
             enabled = data.origin.url.isNotBlank(),
-            onClick = { },
+            onClick = {
+              val originId = getIdFromUrl(data.origin.url)
+              navigateToDetailLocation(originId)
+            },
             colors = ButtonDefaults.buttonColors(
               containerColor = biru,
               contentColor = white,

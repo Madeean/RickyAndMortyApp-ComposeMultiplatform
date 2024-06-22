@@ -7,3 +7,7 @@ fun getIdFromUrl(url: List<String>): String {
   }
   return allId
 }
+
+fun getIdFromUrl(url: String): Int {
+  return url.substringAfterLast("/").toInt()
+}

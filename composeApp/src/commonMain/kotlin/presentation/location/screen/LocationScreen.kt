@@ -57,236 +57,241 @@ import util.LoaderShow
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LocationScreen(innerPaddingValues: PaddingValues, viewModel: LocationViewModel) {
-    val dataPaging by rememberUpdatedState(viewModel.location.collectAsLazyPagingItems())
-    var nameOnChanged by remember { mutableStateOf("") }
-    var typeOnChanged by remember { mutableStateOf("") }
-    var dimensionOnChanged by remember { mutableStateOf("") }
+fun LocationScreen(
+  innerPaddingValues: PaddingValues,
+  viewModel: LocationViewModel,
+  navigateToLocationDetailScreen: (Int) -> Unit
+) {
+  val dataPaging by rememberUpdatedState(viewModel.location.collectAsLazyPagingItems())
+  var nameOnChanged by remember { mutableStateOf("") }
+  var typeOnChanged by remember { mutableStateOf("") }
+  var dimensionOnChanged by remember { mutableStateOf("") }
 
-    val sheetState = rememberModalBottomSheetState()
-    var showBottomSheet by remember { mutableStateOf(false) }
+  val sheetState = rememberModalBottomSheetState()
+  var showBottomSheet by remember { mutableStateOf(false) }
 
-    LaunchedEffect(key1 = true){
-        viewModel.getLocationPaging()
+  LaunchedEffect(key1 = true) {
+    viewModel.getLocationPaging()
+  }
+
+  Column(
+    modifier = Modifier.padding(innerPaddingValues).fillMaxSize().padding(top = 8.dp).background(
+      abuabumuda
+    ),
+    horizontalAlignment = Alignment.CenterHorizontally,
+  ) {
+
+    if (showBottomSheet) {
+      ModalBottomSheet(
+        sheetState = sheetState,
+        onDismissRequest = { showBottomSheet = false }
+      ) {
+        CustomOutlinedTextField(
+          value = nameOnChanged,
+          onValueChange = { nameOnChanged = it },
+          placeholderText = "Search Name Location"
+        )
+        Spacer(modifier = Modifier.height(20.dp))
+        CustomOutlinedTextField(
+          value = typeOnChanged,
+          onValueChange = { typeOnChanged = it },
+          placeholderText = "Search Type Location"
+        )
+        Spacer(modifier = Modifier.height(20.dp))
+        CustomOutlinedTextField(
+          value = dimensionOnChanged,
+          onValueChange = { dimensionOnChanged = it },
+          placeholderText = "Search Dimension Location"
+        )
+        Spacer(modifier = Modifier.height(20.dp))
+        Button(
+          modifier = Modifier.padding(horizontal = 15.dp).fillMaxWidth().wrapContentHeight(),
+          colors = ButtonDefaults.buttonColors(
+            containerColor = biru,
+            contentColor = abuabumuda
+          ),
+          onClick = {
+            viewModel.getLocationPaging(
+              name = nameOnChanged,
+              type = typeOnChanged,
+              dimension = dimensionOnChanged
+            )
+            showBottomSheet = false
+          },
+          shape = RoundedCornerShape(18.dp)
+        ) {
+          Column(
+            modifier = Modifier
+              .fillMaxWidth()
+              .padding(vertical = 8.dp),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+          ) {
+            Row {
+              Icon(imageVector = Icons.Filled.Search, contentDescription = null)
+              Spacer(modifier = Modifier.width(8.dp))
+              Text("Search Character", fontSize = 18.sp)
+            }
+          }
+        }
+        Spacer(modifier = Modifier.height(20.dp))
+      }
     }
 
-    Column(
-        modifier = Modifier.padding(innerPaddingValues).fillMaxSize().padding(top = 8.dp).background(
-            abuabumuda
-        ),
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ){
 
-        if (showBottomSheet) {
-            ModalBottomSheet(
-                sheetState = sheetState,
-                onDismissRequest = { showBottomSheet = false }
-            ) {
-                CustomOutlinedTextField(
-                    value = nameOnChanged,
-                    onValueChange = { nameOnChanged = it },
-                    placeholderText = "Search Name Location"
-                )
-                Spacer(modifier = Modifier.height(20.dp))
-                CustomOutlinedTextField(
-                    value = typeOnChanged,
-                    onValueChange = { typeOnChanged = it },
-                    placeholderText = "Search Type Location"
-                )
-                Spacer(modifier = Modifier.height(20.dp))
-                CustomOutlinedTextField(
-                    value = dimensionOnChanged,
-                    onValueChange = { dimensionOnChanged = it },
-                    placeholderText = "Search Dimension Location"
-                )
-                Spacer(modifier = Modifier.height(20.dp))
-                Button(
-                    modifier = Modifier.padding(horizontal = 15.dp).fillMaxWidth().wrapContentHeight(),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = biru,
-                        contentColor = abuabumuda
-                    ),
-                    onClick = {
-                        viewModel.getLocationPaging(
-                            name = nameOnChanged,
-                            type = typeOnChanged,
-                            dimension = dimensionOnChanged
-                        )
-                        showBottomSheet = false
-                    },
-                    shape = RoundedCornerShape(18.dp)
-                ) {
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 8.dp),
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Row {
-                            Icon(imageVector = Icons.Filled.Search, contentDescription = null)
-                            Spacer(modifier = Modifier.width(8.dp))
-                            Text("Search Character", fontSize = 18.sp)
-                        }
-                    }
-                }
-                Spacer(modifier = Modifier.height(20.dp))
-            }
+    Button(
+      modifier = Modifier.padding(horizontal = 15.dp).fillMaxWidth().wrapContentHeight(),
+      colors = ButtonDefaults.buttonColors(
+        containerColor = biru,
+        contentColor = abuabumuda
+      ),
+      onClick = {
+        showBottomSheet = true
+      },
+      shape = RoundedCornerShape(18.dp)
+    ) {
+      Column(
+        modifier = Modifier
+          .fillMaxWidth()
+          .padding(vertical = 8.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+      ) {
+        Text("Open Filter")
+      }
+    }
+
+    LazyColumn {
+      items(dataPaging.itemCount) { index ->
+        val item = dataPaging[index]
+        item?.let {
+          LocationItem(it, navigateToLocationDetailScreen)
         }
+      }
 
-
-        Button(
-            modifier = Modifier.padding(horizontal = 15.dp).fillMaxWidth().wrapContentHeight(),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = biru,
-                contentColor = abuabumuda
-            ),
-            onClick = {
-                showBottomSheet = true
-            },
-            shape = RoundedCornerShape(18.dp)
-        ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 8.dp),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text("Open Filter")
+      dataPaging.loadState.apply {
+        when {
+          refresh is LoadStateNotLoading && dataPaging.itemCount < 1 -> {
+            item {
+              Box(
+                modifier = Modifier.fillMaxWidth(1f),
+                contentAlignment = Alignment.Center
+              ) {
+                Text(
+                  text = "No Items",
+                  color = black,
+                  modifier = Modifier.align(Alignment.Center),
+                  textAlign = TextAlign.Center
+                )
+              }
             }
-        }
+          }
 
-        LazyColumn {
-            items(dataPaging.itemCount) { index ->
-                val item = dataPaging[index]
-                item?.let {
-                    LocationItem(it)
-                }
+          refresh is LoadStateLoading -> {
+            item {
+              LoaderShow()
             }
+          }
 
-            dataPaging.loadState.apply {
-                when {
-                    refresh is LoadStateNotLoading && dataPaging.itemCount < 1 -> {
-                        item {
-                            Box(
-                                modifier = Modifier.fillMaxWidth(1f),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Text(
-                                    text = "No Items",
-                                    color = black,
-                                    modifier = Modifier.align(Alignment.Center),
-                                    textAlign = TextAlign.Center
-                                )
-                            }
-                        }
-                    }
-
-                    refresh is LoadStateLoading -> {
-                        item {
-                            LoaderShow()
-                        }
-                    }
-
-                    append is LoadStateLoading -> {
-                        item {
+          append is LoadStateLoading -> {
+            item {
 //              CircularProgressIndicator(
 //                color = Color.Red,
 //                modifier = Modifier.fillMaxWidth(1f)
 //                  .padding(20.dp)®
 //                  .wrapContentWidth(Alignment.CenterHorizontally)
 //              )
-                            LoaderShow()
-                        }
-                    }
-
-                    refresh is LoadStateError -> {
-                        item {
-                            ErrorView(
-                                message = "No Internet Connection.",
-                                onClickRetry = { dataPaging.retry() },
-                                modifier = Modifier.fillMaxWidth(1f)
-                            )
-                        }
-                    }
-                    append is LoadStateError -> {
-                        item {
-                            ErrorItem(
-                                message = "No Internet Connection",
-                                onClickRetry = { dataPaging.retry() },
-                            )
-                        }
-                    }
-                }
+              LoaderShow()
             }
-        }
+          }
 
+          refresh is LoadStateError -> {
+            item {
+              ErrorView(
+                message = "No Internet Connection.",
+                onClickRetry = { dataPaging.retry() },
+                modifier = Modifier.fillMaxWidth(1f)
+              )
+            }
+          }
+
+          append is LoadStateError -> {
+            item {
+              ErrorItem(
+                message = "No Internet Connection",
+                onClickRetry = { dataPaging.retry() },
+              )
+            }
+          }
+        }
+      }
     }
+
+  }
 
 }
 
 @Composable
-fun LocationItem(data: LocationDetailModelDomain) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(140.dp)
-            .padding(horizontal = 15.dp, vertical = 10.dp),
-        shape = RoundedCornerShape(12.dp),
-        elevation = CardDefaults.cardElevation(5.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = Color.White
-        )
+fun LocationItem(data: LocationDetailModelDomain, navigateToLocationDetailScreen: (Int) -> Unit) {
+  Card(
+    modifier = Modifier
+      .fillMaxWidth()
+      .height(140.dp)
+      .padding(horizontal = 15.dp, vertical = 10.dp),
+    shape = RoundedCornerShape(12.dp),
+    elevation = CardDefaults.cardElevation(5.dp),
+    colors = CardDefaults.cardColors(
+      containerColor = Color.White
+    )
+  ) {
+    Box(
+      modifier = Modifier
+        .fillMaxWidth()
+        .padding(15.dp)
     ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(15.dp)
-        ) {
-            Column(
-                modifier = Modifier.align(Alignment.TopStart)
-            ) {
-                Text(
-                    text = data.name, // Gunakan string resource sesuai kebutuhan
-                    color = black,
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
-                Spacer(modifier = Modifier.height(12.dp))
-                Text(
-                    text = data.type, // Gunakan string resource atau data dinamis sesuai kebutuhan
-                    color = Color.Black,
-                    fontSize = 16.sp,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
-                Spacer(modifier = Modifier.height(12.dp))
-                Text(
-                    text = data.dimension,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Thin
-                )
-            }
-            Button(
-                onClick = { /* Handle button click */ },
-                modifier = Modifier.align(Alignment.BottomEnd),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = biru,
-                    contentColor = abuabumuda
-                ),
-                shape = RoundedCornerShape(18.dp)
-            ) {
-                Text(
-                    text = "Detail",
-                    fontSize = 16.sp,
-                    color = abuabumuda
-                )
-            }
-        }
+      Column(
+        modifier = Modifier.align(Alignment.TopStart)
+      ) {
+        Text(
+          text = data.name, // Gunakan string resource sesuai kebutuhan
+          color = black,
+          fontSize = 18.sp,
+          fontWeight = FontWeight.Bold,
+          maxLines = 1,
+          overflow = TextOverflow.Ellipsis
+        )
+        Spacer(modifier = Modifier.height(12.dp))
+        Text(
+          text = data.type, // Gunakan string resource atau data dinamis sesuai kebutuhan
+          color = Color.Black,
+          fontSize = 16.sp,
+          maxLines = 1,
+          overflow = TextOverflow.Ellipsis
+        )
+        Spacer(modifier = Modifier.height(12.dp))
+        Text(
+          text = data.dimension,
+          maxLines = 1,
+          overflow = TextOverflow.Ellipsis,
+          fontSize = 14.sp,
+          fontWeight = FontWeight.Thin
+        )
+      }
+      Button(
+        onClick = { navigateToLocationDetailScreen(data.id) },
+        modifier = Modifier.align(Alignment.BottomEnd),
+        colors = ButtonDefaults.buttonColors(
+          containerColor = biru,
+          contentColor = abuabumuda
+        ),
+        shape = RoundedCornerShape(18.dp)
+      ) {
+        Text(
+          text = "Detail",
+          fontSize = 16.sp,
+          color = abuabumuda
+        )
+      }
     }
+  }
 }

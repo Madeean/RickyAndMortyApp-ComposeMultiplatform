@@ -14,6 +14,7 @@ import presentation.navigation.directions.aboutComposable
 import presentation.navigation.directions.characterDetailComposable
 import presentation.navigation.directions.episodeDetailComposable
 import presentation.navigation.directions.favoriteComposable
+import presentation.navigation.directions.locationDetailComposable
 import presentation.navigation.directions.splashComposable
 import presentation.util.ConstantNavigator
 
@@ -44,7 +45,8 @@ fun SetupNavigation(
       navigateToAboutScreen = screen.about,
       navigateToFavoriteScreen = screen.favorite,
       navigateToEpisodeDetailScreen = screen.episodeDetail,
-      navigateToCharacterDetailScreen = screen.characterDetail
+      navigateToCharacterDetailScreen = screen.characterDetail,
+      navigateToLocationDetailScreen = screen.locationDetail
     )
     aboutComposable(
       onBackClicked = navController
@@ -62,7 +64,14 @@ fun SetupNavigation(
       onBackClicked = navController,
       episodeViewModel = episodeViewModel,
       characterViewModel = characterViewModel,
-      navigateToDetailEpisode = screen.episodeDetail
+      navigateToDetailEpisode = screen.episodeDetail,
+      navigateToDetailLocation = screen.locationDetail
+    )
+    locationDetailComposable(
+      onBackClicked = navController,
+      locationViewModel = locationViewModel,
+      characterViewModel = characterViewModel,
+      navigateToCharacterDetailScreen = screen.characterDetail
     )
   }
 }

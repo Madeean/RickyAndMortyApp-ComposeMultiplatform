@@ -37,7 +37,7 @@ data class LocationDetailModelDataResponse (
       }
     }
 
-    private fun transform(model: LocationDetailModelDataResponse): LocationDetailModelDomain {
+    fun transform(model: LocationDetailModelDataResponse): LocationDetailModelDomain {
       return LocationDetailModelDomain(
         id = model.id ?: 0,
         name = model.name ?: "",

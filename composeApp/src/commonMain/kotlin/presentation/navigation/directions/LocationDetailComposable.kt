@@ -7,27 +7,26 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import presentation.character.screen.detail.CharacterDetailScreen
 import presentation.character.viewmodel.CharacterViewModel
-import presentation.episode.viewmodel.EpisodeViewModel
+import presentation.location.screen.detail.LocationDetailScreen
+import presentation.location.viewmodel.LocationViewModel
 import presentation.util.ConstantNavigator
 
-fun NavGraphBuilder.characterDetailComposable(
+fun NavGraphBuilder.locationDetailComposable(
   onBackClicked: NavController,
-  episodeViewModel: EpisodeViewModel,
+  locationViewModel: LocationViewModel,
   characterViewModel: CharacterViewModel,
-  navigateToDetailEpisode: (Int) ->Unit,
-  navigateToDetailLocation: (Int) ->Unit,
+  navigateToCharacterDetailScreen: (Int) -> Unit
 ) {
   composable(
-    route = ConstantNavigator.CHARACTER_DETAIL_SCREEN,
+    route = ConstantNavigator.LOCATION_DETAIL_SCREEN,
     enterTransition = { EnterTransition.None },
     exitTransition = { ExitTransition.None },
-    arguments = listOf(navArgument(ConstantNavigator.CHARACTER_DETAIL_ARGUMENT_KEY) {
+    arguments = listOf(navArgument(ConstantNavigator.LOCATION_DETAIL_ARGUMENT_KEY) {
       type = NavType.IntType
     })
   ) {
-    val characterId = it.arguments?.getInt(ConstantNavigator.CHARACTER_DETAIL_ARGUMENT_KEY) ?: 0
-    CharacterDetailScreen(onBackClicked, episodeViewModel, characterViewModel, characterId, navigateToDetailEpisode, navigateToDetailLocation)
+    val locationId = it.arguments?.getInt(ConstantNavigator.LOCATION_DETAIL_ARGUMENT_KEY) ?: 0
+    LocationDetailScreen(onBackClicked, locationViewModel, characterViewModel, locationId, navigateToCharacterDetailScreen)
   }
 }

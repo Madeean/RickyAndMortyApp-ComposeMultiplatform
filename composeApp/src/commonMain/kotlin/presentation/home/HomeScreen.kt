@@ -45,6 +45,7 @@ fun HomeScreen(
   navigateToFavoriteScreen: () -> Unit,
   navigateToEpisodeDetailScreen: (Int) -> Unit,
   navigateToCharacterDetailScreen: (Int) -> Unit,
+  navigateToLocationDetailScreen: (Int) -> Unit,
 ) {
   var selectedItem by remember { mutableStateOf(0) }
   val items = listOf("Episode", "Character", "Location", "Settings")
@@ -108,9 +109,8 @@ fun HomeScreen(
         viewModel = episodeViewModel,
         navigateToEpisodeDetailScreen
       )
-
       1 -> CharacterScreen(innerPadding, characterViewModel, navigateToCharacterDetailScreen)
-      2 -> LocationScreen(innerPadding, locationViewModel)
+      2 -> LocationScreen(innerPadding, locationViewModel, navigateToLocationDetailScreen)
       3 -> SettingScreen(innerPadding, navigateToAboutScreen, navigateToFavoriteScreen)
     }
   }

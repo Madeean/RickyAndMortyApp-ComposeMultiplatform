@@ -4,6 +4,7 @@ import app.cash.paging.PagingData
 import domain.location.model.network.LocationDetailModelDomain
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
+import util.RequestState
 
 interface LocationDomainRepository {
   fun getLocationPaging(
@@ -13,4 +14,7 @@ interface LocationDomainRepository {
     dimension: String
   ): Flow<PagingData<LocationDetailModelDomain>>
 
+  fun getDetailLocation(
+    locationId: Int
+  ): Flow<RequestState<LocationDetailModelDomain>>
 }
