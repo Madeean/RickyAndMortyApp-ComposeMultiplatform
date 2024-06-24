@@ -17,8 +17,6 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowRight
-import androidx.compose.material.icons.outlined.Favorite
-import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material.icons.outlined.Warning
 import androidx.compose.material3.Switch
 import androidx.compose.runtime.Composable
@@ -43,13 +41,13 @@ fun SettingScreen(
 ) {
 
   val data: List<SettingModelPresentation> = listOf(
-    SettingModelPresentation(
-      imageVector = Icons.Outlined.Favorite,
-      title = "Favorite list",
-      isDarkMode = false,
-      isNavigate = true,
-      navigate = navigateToFavoriteScreen
-    ),
+//    SettingModelPresentation(
+//      imageVector = Icons.Outlined.Favorite,
+//      title = "Favorite list",
+//      isDarkMode = false,
+//      isNavigate = true,
+//      navigate = navigateToFavoriteScreen
+//    ),
     SettingModelPresentation(
       imageVector = Icons.Outlined.Warning,
       title = "About this application",
@@ -57,13 +55,13 @@ fun SettingScreen(
       isNavigate = true,
       navigate = navigateToAboutScreen
     ),
-    SettingModelPresentation(
-      imageVector = Icons.Outlined.Star,
-      title = "Dark mode",
-      isDarkMode = true,
-      isNavigate = false,
-      navigate = {}
-    )
+//    SettingModelPresentation(
+//      imageVector = Icons.Outlined.Star,
+//      title = "Dark mode",
+//      isDarkMode = true,
+//      isNavigate = false,
+//      navigate = {}
+//    )
   )
 
   Column(
