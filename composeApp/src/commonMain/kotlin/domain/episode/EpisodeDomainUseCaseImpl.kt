@@ -27,4 +27,8 @@ class EpisodeDomainUseCaseImpl(
     return repository.getEpisodeFromUrl(url)
   }
 
+  override suspend fun addEpisodeFavorite(idEpisode: Int): Flow<RequestState<String>> {
+    return repository.addEpisodeFavorite(idEpisode)
+  }
+
 }

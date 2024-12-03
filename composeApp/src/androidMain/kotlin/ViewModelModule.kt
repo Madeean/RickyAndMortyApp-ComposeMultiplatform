@@ -1,3 +1,4 @@
+import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
 import presentation.episode.viewmodel.EpisodeViewModel
@@ -8,4 +9,5 @@ actual val viewModelModule = module {
   viewModelOf(::EpisodeViewModel)
   viewModelOf(::CharacterViewModel)
   viewModelOf(::LocationViewModel)
+  single { DatabaseFactory(androidApplication()) }
 }

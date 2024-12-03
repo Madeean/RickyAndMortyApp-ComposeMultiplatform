@@ -19,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -47,7 +48,7 @@ fun HomeScreen(
   navigateToCharacterDetailScreen: (Int) -> Unit,
   navigateToLocationDetailScreen: (Int) -> Unit,
 ) {
-  var selectedItem by remember { mutableStateOf(0) }
+  var selectedItem by rememberSaveable { mutableStateOf(0) }
   val items = listOf("Episode", "Character", "Location", "Settings")
 
   Scaffold(
@@ -109,6 +110,7 @@ fun HomeScreen(
         viewModel = episodeViewModel,
         navigateToEpisodeDetailScreen
       )
+
       1 -> CharacterScreen(innerPadding, characterViewModel, navigateToCharacterDetailScreen)
       2 -> LocationScreen(innerPadding, locationViewModel, navigateToLocationDetailScreen)
       3 -> SettingScreen(innerPadding, navigateToAboutScreen, navigateToFavoriteScreen)

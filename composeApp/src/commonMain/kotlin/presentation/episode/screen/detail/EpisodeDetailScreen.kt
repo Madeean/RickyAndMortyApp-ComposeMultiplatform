@@ -211,23 +211,6 @@ private fun EpisodeDetailSuccessView(
       }
     }
 
-//      Spacer(modifier = Modifier.height(20.dp))
-//
-//      Card(
-//        modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp),
-//        colors = CardDefaults.cardColors(
-//          containerColor = white
-//        ),
-//        shape = RoundedCornerShape(12.dp),
-//      ) {
-//        Column(
-//          modifier = Modifier.padding(15.dp)
-//        ) {
-//          Text("Overview", fontWeight = FontWeight.Bold, fontSize = 16.sp, color = hitam)
-//          Text("Overview", fontSize = 20.sp, color = hitam, modifier = Modifier.padding(top = 8.dp))
-//
-//        }
-//      }
     Spacer(modifier = Modifier.height(20.dp))
 
     Surface(

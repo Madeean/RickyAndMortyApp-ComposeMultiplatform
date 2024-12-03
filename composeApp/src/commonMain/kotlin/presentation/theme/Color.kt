@@ -23,7 +23,6 @@ val DarkGray = Color(0xFF141414)
 val LowPriorityColor = Color(0xFF00C980)
 val MediumPriorityColor = Color(0xFFFFC114)
 val HighPriorityColor = Color(0xFFFF4646)
-val NonePriorityColor = MediumGray
 
 val purple_200 =Color(0xFFBB86FC)
 val purple_500 =Color(0xFF6200EE)
