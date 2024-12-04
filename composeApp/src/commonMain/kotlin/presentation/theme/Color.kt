@@ -23,7 +23,6 @@ val DarkGray = Color(0xFF141414)
 val LowPriorityColor = Color(0xFF00C980)
 val MediumPriorityColor = Color(0xFFFFC114)
 val HighPriorityColor = Color(0xFFFF4646)
-val NonePriorityColor = MediumGray
 
 val purple_200 =Color(0xFFBB86FC)
 val purple_500 =Color(0xFF6200EE)
@@ -48,25 +47,10 @@ val darkmode_biru_sangat_muda = Color(0xFFA5D7E8)
 
 
 
-val ColorScheme.splashScreenBackground: Color
+val ColorScheme.backgroundHome: Color
   @Composable
-  get() = if (isSystemInDarkTheme()) Purple80 else Color.Black
+  get() = if (isSystemInDarkTheme()) abuabumuda else darkmode_biru_tua
 
-val ColorScheme.taskItemTextColor: Color
+val ColorScheme.backgroundSearchText: Color
   @Composable
-  get() = if (isSystemInDarkTheme()) DarkGray else LightGray
-
-val ColorScheme.taskItemBackgroundColor: Color
-  @Composable
-  get() = if (isSystemInDarkTheme()) Color.White else DarkGray
-
-val ColorScheme.topAppBarContentColor: Color
-  @Composable
-  get() = if (isSystemInDarkTheme()) Color.White else LightGray
-
-val ColorScheme.topAppBarBackgroundColor: Color
-  @Composable
-  get() = if (isSystemInDarkTheme()) Purple80 else Color.Black
-val ColorScheme.fabBackgroundColor: Color
-  @Composable
-  get() = if (isSystemInDarkTheme()) Teal200 else Purple80
+  get() = if (isSystemInDarkTheme()) abuabumuda else darkmode_biru_tua_sedikit_muda

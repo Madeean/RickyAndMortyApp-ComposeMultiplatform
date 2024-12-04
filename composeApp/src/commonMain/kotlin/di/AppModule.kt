@@ -1,5 +1,8 @@
 package di
 
+import DatabaseFactory
+import androidx.sqlite.driver.bundled.BundledSQLiteDriver
+import data.local.AppDatabase
 import data.network.ApiService
 import data.network.httpClient
 import data.repository.domainrepository.CharacterDomainRepositoryImpl
@@ -24,10 +27,10 @@ val appModule = module {
   single { ApiService() }
 
 //  Episode Repository
-  single { EpisodeDomainRepositoryImpl(get(),get()) }
+  single { EpisodeDomainRepositoryImpl(get(),get(), get()) }
   single { EpisodeDomainUseCaseImpl(get()) }
   single<EpisodeDomainUseCase> { EpisodeDomainUseCaseImpl(get()) }
-  single<EpisodeDomainRepository> { EpisodeDomainRepositoryImpl(get(),get()) }
+  single<EpisodeDomainRepository> { EpisodeDomainRepositoryImpl(get(),get(), get()) }
 
 //  Episode ViewModel
   factory { EpisodeViewModel(get()) }
@@ -47,4 +50,7 @@ val appModule = module {
   single<LocationDomainRepository> { LocationDomainRepositoryImpl(get(),get()) }
 //  LOCATION VIEWMODEL
   factory { LocationViewModel(get()) }
+
+  single { get<DatabaseFactory>().create().setDriver(BundledSQLiteDriver()).build() }
+  single { get<AppDatabase>().episodeDao }
 }

@@ -4,6 +4,8 @@ import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import app.cash.paging.Pager
 import app.cash.paging.PagingData
+import data.local.episode.EpisodeDao
+import data.local.episode.model.EpisodeModel
 import data.network.ApiService
 import data.repository.datastore.episode.EpisodeDataStore
 import data.repository.datastore.episode.EpisodePagingDataSource
@@ -17,7 +19,8 @@ import util.RequestState
 
 class EpisodeDomainRepositoryImpl(
   private val httpClient: HttpClient,
-  private val apiService: ApiService
+  private val apiService: ApiService,
+  private val episodeDao: EpisodeDao
 ) : EpisodeDomainRepository {
   private val dataSource = EpisodeDataStore(httpClient, apiService)
 
@@ -47,6 +50,16 @@ class EpisodeDomainRepositoryImpl(
       emit(RequestState.Loading)
       val data = dataSource.getListEpisodeFromUrl(url)
       emit(data)
+    }
+  }
+
+  override suspend fun addEpisodeFavorite(idEpisode: Int): Flow<RequestState<String>> = flow {
+    try {
+      emit(RequestState.Loading)
+      episodeDao.insertEpisodeFavoriteRoom(EpisodeModel(idEpisode))
+      emit(RequestState.Success("Success"))
+    } catch (e: Exception) {
+      emit(RequestState.Error(e))
     }
   }
 

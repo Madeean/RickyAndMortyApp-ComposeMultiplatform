@@ -8,4 +8,5 @@ actual val viewModelModule = module {
   singleOf(::EpisodeViewModel)
   singleOf(::CharacterViewModel)
   singleOf(::LocationViewModel)
+  single { DatabaseFactory() }
 }

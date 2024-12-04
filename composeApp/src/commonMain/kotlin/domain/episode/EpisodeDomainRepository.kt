@@ -20,4 +20,5 @@ interface EpisodeDomainRepository {
 
   fun getEpisodeFromUrl(url: String): Flow<RequestState<List<EpisodeDetailModelDomain>>>
 
+  suspend fun addEpisodeFavorite(idEpisode: Int): Flow<RequestState<String>>
 }

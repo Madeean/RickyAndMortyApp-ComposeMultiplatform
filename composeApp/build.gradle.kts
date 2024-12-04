@@ -3,6 +3,8 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.kotlinxSerialization)
+    id("com.google.devtools.ksp") version "1.9.20-1.0.13"
+    id("androidx.room") version "2.7.0-alpha11"
 }
 
 kotlin {
@@ -24,6 +26,10 @@ kotlin {
             baseName = "ComposeApp"
             isStatic = true
         }
+    }
+
+    room {
+        schemaDirectory("$projectDir/schemas")
     }
     
     sourceSets {
@@ -63,9 +69,15 @@ kotlin {
             implementation(libs.compottie)
 
             implementation(libs.flexible.bottomsheet.material3)
+
+            implementation("androidx.room:room-runtime:2.7.0-alpha11")
+            implementation("androidx.sqlite:sqlite-bundled:2.5.0-alpha11")
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
+        }
+        dependencies {
+            ksp("androidx.room:room-compiler:2.7.0-alpha11")
         }
     }
 }

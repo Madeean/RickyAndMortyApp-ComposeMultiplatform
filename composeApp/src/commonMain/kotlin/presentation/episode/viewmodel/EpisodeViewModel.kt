@@ -26,6 +26,9 @@ class EpisodeViewModel(private val useCase: EpisodeDomainUseCase) : ViewModel() 
     MutableStateFlow(RequestState.Idle)
   val listEpisodeFromUrl: StateFlow<RequestState<List<EpisodeDetailModelDomain>>> = _listEpisodeFromUrl
 
+  private val _addEpisodeFavorite: MutableStateFlow<RequestState<String>> = MutableStateFlow(RequestState.Idle)
+  val addEpisodeFavorite: StateFlow<RequestState<String>> = _addEpisodeFavorite
+
   fun getEpisodePaging(name: String = "") {
     viewModelScope.launch {
       useCase.getEpisodePaging(viewModelScope, name).collectLatest { it ->
@@ -46,6 +49,14 @@ class EpisodeViewModel(private val useCase: EpisodeDomainUseCase) : ViewModel() 
     viewModelScope.launch {
       useCase.getEpisodeFromUrl(url).collect{
         _listEpisodeFromUrl.value = it
+      }
+    }
+  }
+
+  fun addEpisodeFavorite(idEpisode: Int) {
+    viewModelScope.launch {
+      useCase.addEpisodeFavorite(idEpisode).collect {
+        _addEpisodeFavorite.value = it
       }
     }
   }
