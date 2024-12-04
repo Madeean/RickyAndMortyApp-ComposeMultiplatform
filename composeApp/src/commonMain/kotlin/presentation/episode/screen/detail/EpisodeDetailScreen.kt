@@ -2,6 +2,7 @@ package presentation.episode.screen.detail
 
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -34,9 +35,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
 import domain.character.model.network.CharacterDetailModelDomain
 import domain.episode.model.network.EpisodeDetailModelDomain
+import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.painterResource
 import presentation.character.viewmodel.CharacterViewModel
 import presentation.episode.viewmodel.EpisodeViewModel
@@ -47,6 +50,7 @@ import presentation.theme.merah
 import presentation.theme.white
 import presentation.util.CharacterItem
 import presentation.util.DefaultAppBar
+import presentation.util.LoadingIndicator
 import presentation.util.NonlazyGrid
 import presentation.util.getIdFromUrl
 import rickandmortyapp.composeapp.generated.resources.Res
@@ -80,6 +84,13 @@ fun EpisodeDetailScreen(
     }
   }
 
+  LaunchedEffect(key1 = isEpisodeFavorite) {
+    if (isEpisodeFavorite) {
+      delay(3000) // Tunggu 3 detik
+      isEpisodeFavorite = false // Ubah kembali ke false
+    }
+  }
+
   Scaffold(
     contentColor = abuabumuda,
     containerColor = abuabumuda,
@@ -88,6 +99,16 @@ fun EpisodeDetailScreen(
       DefaultAppBar("Detail Episode", true, onBackClicked)
     },
   ) { innerPadding ->
+
+    Box(
+      modifier = Modifier.fillMaxSize().zIndex(10f)
+    ) {
+      LoadingIndicator(
+        isLoading = isEpisodeFavorite,
+        title = "Loading",
+      )
+    }
+
     when (dataDetailEpisode) {
       is RequestState.Idle -> {
         LoaderShow()
